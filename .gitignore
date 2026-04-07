@@ -1,0 +1,11 @@
+# Database files
+*.xlsx
+*.xls
+*.csv
+
+# Log files
+*.log
+
+# Sensitive or temporary files
+.DS_Store
+Thumbs.db
