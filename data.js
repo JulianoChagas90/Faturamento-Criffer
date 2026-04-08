@@ -1931,14 +1931,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  759480.09000000032,
+                                                                                     "vendas":  759601.39000000025,
                                                                                      "locacao":  236184.64999999997,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  345600.52999999991
                                                                                  },
                                                                     "regiao":  "Sul",
                                                                     "uf":  "RS",
-                                                                    "total":  1341265.2699999998
+                                                                    "total":  1341386.5699999998
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -2019,14 +2019,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  591256.08000000007,
+                                                                                     "vendas":  591181.98,
                                                                                      "locacao":  21884,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  122674.87999999999
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "RJ",
-                                                                    "total":  735814.96000000008
+                                                                    "total":  735740.8600000001
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -2096,14 +2096,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  1514360.3199999996,
+                                                                                     "vendas":  1514313.1199999999,
                                                                                      "locacao":  11534,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  335107.64999999991
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "MG",
-                                                                    "total":  1861001.97
+                                                                    "total":  1860954.7700000003
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -2156,9 +2156,9 @@
                                                                        "total":  2505880.2499999995
                                                                    },
                                                                    {
-                                                                       "nfs":  34,
+                                                                       "nfs":  36,
                                                                        "nome":  "Josiane Govoni Lanzarini",
-                                                                       "total":  68797.77
+                                                                       "total":  68919.07
                                                                    },
                                                                    {
                                                                        "nfs":  183,
@@ -2183,12 +2183,12 @@
                                                                    {
                                                                        "nfs":  401,
                                                                        "nome":  "Rogislei Vieira Padilha",
-                                                                       "total":  3823101.2200000025
+                                                                       "total":  3823054.0200000023
                                                                    },
                                                                    {
                                                                        "nfs":  98,
                                                                        "nome":  "Site",
-                                                                       "total":  237080.95999999988
+                                                                       "total":  237006.85999999987
                                                                    },
                                                                    {
                                                                        "nfs":  71,
@@ -4476,14 +4476,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  160222.87000000002,
+                                                                                     "vendas":  160344.17000000004,
                                                                                      "locacao":  55093.749999999993,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  82239.75
                                                                                  },
                                                                     "regiao":  "Sul",
                                                                     "uf":  "RS",
-                                                                    "total":  297556.37
+                                                                    "total":  297677.67
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -4586,14 +4586,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  139479.1,
+                                                                                     "vendas":  139405,
                                                                                      "locacao":  9487,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  26562.43
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "RJ",
-                                                                    "total":  175528.53
+                                                                    "total":  175454.43
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -4663,14 +4663,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  335675.27,
+                                                                                     "vendas":  335628.07000000007,
                                                                                      "locacao":  3183,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  65916.400000000009
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "MG",
-                                                                    "total":  404774.67
+                                                                    "total":  404727.47000000003
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -4710,12 +4710,12 @@
                                                                    {
                                                                        "nfs":  20,
                                                                        "nome":  "Site",
-                                                                       "total":  60805.499999999993
+                                                                       "total":  60731.399999999994
                                                                    },
                                                                    {
-                                                                       "nfs":  15,
+                                                                       "nfs":  17,
                                                                        "nome":  "Josiane Govoni Lanzarini",
-                                                                       "total":  15353.77
+                                                                       "total":  15475.070000000002
                                                                    },
                                                                    {
                                                                        "nfs":  43,
@@ -4730,7 +4730,7 @@
                                                                    {
                                                                        "nfs":  92,
                                                                        "nome":  "Rogislei Vieira Padilha",
-                                                                       "total":  941585.64999999932
+                                                                       "total":  941538.44999999925
                                                                    },
                                                                    {
                                                                        "nfs":  63,
@@ -5358,14 +5358,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  1141176.5200000005,
+                                                                                     "vendas":  1141297.8200000003,
                                                                                      "locacao":  318408.69999999995,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  534201.12999999977
                                                                                  },
                                                                     "regiao":  "Sul",
                                                                     "uf":  "RS",
-                                                                    "total":  1993786.3500000003
+                                                                    "total":  1993907.6500000004
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -5446,14 +5446,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  1005690.3600000003,
+                                                                                     "vendas":  1005616.2600000002,
                                                                                      "locacao":  28721,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  180825.42999999996
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "RJ",
-                                                                    "total":  1215236.7900000007
+                                                                    "total":  1215162.6900000006
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -5523,14 +5523,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  2007691.6700000002,
+                                                                                     "vendas":  2007644.4700000004,
                                                                                      "locacao":  18915,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  494557.24999999977
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "MG",
-                                                                    "total":  2521163.9199999981
+                                                                    "total":  2521116.7199999983
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -5583,9 +5583,9 @@
                                                                        "total":  3662415.1199999922
                                                                    },
                                                                    {
-                                                                       "nfs":  177,
+                                                                       "nfs":  179,
                                                                        "nome":  "Josiane Govoni Lanzarini",
-                                                                       "total":  289714.77
+                                                                       "total":  289836.07
                                                                    },
                                                                    {
                                                                        "nfs":  288,
@@ -5610,12 +5610,12 @@
                                                                    {
                                                                        "nfs":  582,
                                                                        "nome":  "Rogislei Vieira Padilha",
-                                                                       "total":  5552098.9200000018
+                                                                       "total":  5552051.7200000025
                                                                    },
                                                                    {
                                                                        "nfs":  118,
                                                                        "nome":  "Site",
-                                                                       "total":  297743.44999999995
+                                                                       "total":  297669.34999999992
                                                                    },
                                                                    {
                                                                        "nfs":  218,
@@ -9583,14 +9583,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  841415.74000000034,
+                                                                                     "vendas":  841537.04000000027,
                                                                                      "locacao":  266626.69999999995,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  415350.97999999986
                                                                                  },
                                                                     "regiao":  "Sul",
                                                                     "uf":  "RS",
-                                                                    "total":  1523393.42
+                                                                    "total":  1523514.72
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -9671,14 +9671,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  697396.63,
+                                                                                     "vendas":  697322.52999999991,
                                                                                      "locacao":  22784,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  132327.18
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "RJ",
-                                                                    "total":  852507.81
+                                                                    "total":  852433.71000000008
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -9748,14 +9748,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  1693529.5699999998,
+                                                                                     "vendas":  1693482.37,
                                                                                      "locacao":  11534,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  382738.6999999999
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "MG",
-                                                                    "total":  2087802.2700000003
+                                                                    "total":  2087755.0700000005
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -9808,9 +9808,9 @@
                                                                        "total":  2906299.5999999978
                                                                    },
                                                                    {
-                                                                       "nfs":  81,
+                                                                       "nfs":  83,
                                                                        "nome":  "Josiane Govoni Lanzarini",
-                                                                       "total":  152287.77000000002
+                                                                       "total":  152409.07
                                                                    },
                                                                    {
                                                                        "nfs":  213,
@@ -9835,12 +9835,12 @@
                                                                    {
                                                                        "nfs":  463,
                                                                        "nome":  "Rogislei Vieira Padilha",
-                                                                       "total":  4470738.4700000072
+                                                                       "total":  4470691.2700000079
                                                                    },
                                                                    {
                                                                        "nfs":  109,
                                                                        "nome":  "Site",
-                                                                       "total":  283371.25999999989
+                                                                       "total":  283297.15999999986
                                                                    },
                                                                    {
                                                                        "nfs":  125,
@@ -11170,14 +11170,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  531992.59000000008,
+                                                                                     "vendas":  532113.89,
                                                                                      "locacao":  195036.14999999997,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  265605.99999999994
                                                                                  },
                                                                     "regiao":  "Sul",
                                                                     "uf":  "RS",
-                                                                    "total":  992634.73999999976
+                                                                    "total":  992756.0399999998
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -11280,14 +11280,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  369712.48000000004,
+                                                                                     "vendas":  369638.38000000006,
                                                                                      "locacao":  17987,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  88814.979999999981
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "RJ",
-                                                                    "total":  476514.46000000008
+                                                                    "total":  476440.3600000001
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -11357,14 +11357,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  948647.98999999987,
+                                                                                     "vendas":  948600.78999999992,
                                                                                      "locacao":  8489,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  239605.55
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "MG",
-                                                                    "total":  1196742.5399999998
+                                                                    "total":  1196695.34
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -11414,7 +11414,7 @@
                                                                    {
                                                                        "nfs":  79,
                                                                        "nome":  "Site",
-                                                                       "total":  177014.87999999992
+                                                                       "total":  176940.77999999991
                                                                    },
                                                                    {
                                                                        "nfs":  8,
@@ -11424,7 +11424,7 @@
                                                                    {
                                                                        "nfs":  292,
                                                                        "nome":  "Rogislei Vieira Padilha",
-                                                                       "total":  2667071.1699999971
+                                                                       "total":  2667023.9699999969
                                                                    },
                                                                    {
                                                                        "nfs":  13,
@@ -11447,9 +11447,9 @@
                                                                        "total":  436079.48000000004
                                                                    },
                                                                    {
-                                                                       "nfs":  15,
+                                                                       "nfs":  17,
                                                                        "nome":  "Josiane Govoni Lanzarini",
-                                                                       "total":  15353.77
+                                                                       "total":  15475.070000000002
                                                                    },
                                                                    {
                                                                        "nfs":  1139,
@@ -13732,14 +13732,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  395081.69,
+                                                                                     "vendas":  395202.99,
                                                                                      "locacao":  122371.90999999997,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  172243.49999999997
                                                                                  },
                                                                     "regiao":  "Sul",
                                                                     "uf":  "RS",
-                                                                    "total":  689697.09999999974
+                                                                    "total":  689818.39999999979
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -13842,14 +13842,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  174496.49000000008,
+                                                                                     "vendas":  174422.39000000007,
                                                                                      "locacao":  12953,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  52026.029999999992
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "RJ",
-                                                                    "total":  239475.52000000011
+                                                                    "total":  239401.4200000001
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -13919,14 +13919,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  606378.53999999992,
+                                                                                     "vendas":  606331.34,
                                                                                      "locacao":  4068,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  151414.25
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "MG",
-                                                                    "total":  761860.78999999992
+                                                                    "total":  761813.59
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -13971,7 +13971,7 @@
                                                                    {
                                                                        "nfs":  55,
                                                                        "nome":  "Site",
-                                                                       "total":  124625.78999999996
+                                                                       "total":  124551.68999999997
                                                                    },
                                                                    {
                                                                        "nfs":  80,
@@ -13986,12 +13986,12 @@
                                                                    {
                                                                        "nfs":  190,
                                                                        "nome":  "Rogislei Vieira Padilha",
-                                                                       "total":  1888972.4199999981
+                                                                       "total":  1888925.2199999979
                                                                    },
                                                                    {
-                                                                       "nfs":  15,
+                                                                       "nfs":  17,
                                                                        "nome":  "Josiane Govoni Lanzarini",
-                                                                       "total":  15353.77
+                                                                       "total":  15475.070000000002
                                                                    },
                                                                    {
                                                                        "nfs":  139,
@@ -14591,14 +14591,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  972683.52000000048,
+                                                                                     "vendas":  972804.82000000041,
                                                                                      "locacao":  302441.69999999995,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  487679.0299999998
                                                                                  },
                                                                     "regiao":  "Sul",
                                                                     "uf":  "RS",
-                                                                    "total":  1762804.2500000002
+                                                                    "total":  1762925.5500000003
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -14679,14 +14679,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  905643.46000000031,
+                                                                                     "vendas":  905569.36000000022,
                                                                                      "locacao":  24166,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  163560.43
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "RJ",
-                                                                    "total":  1093369.8900000004
+                                                                    "total":  1093295.7900000003
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -14756,14 +14756,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  1815355.5099999998,
+                                                                                     "vendas":  1815308.31,
                                                                                      "locacao":  16845,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  471539.84999999992
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "MG",
-                                                                    "total":  2303740.3600000003
+                                                                    "total":  2303693.1600000006
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -14816,9 +14816,9 @@
                                                                        "total":  3410818.4399999972
                                                                    },
                                                                    {
-                                                                       "nfs":  137,
+                                                                       "nfs":  139,
                                                                        "nome":  "Josiane Govoni Lanzarini",
-                                                                       "total":  220920.77000000002
+                                                                       "total":  221042.07
                                                                    },
                                                                    {
                                                                        "nfs":  251,
@@ -14843,12 +14843,12 @@
                                                                    {
                                                                        "nfs":  518,
                                                                        "nome":  "Rogislei Vieira Padilha",
-                                                                       "total":  4992984.8200000031
+                                                                       "total":  4992937.6200000038
                                                                    },
                                                                    {
                                                                        "nfs":  116,
                                                                        "nome":  "Site",
-                                                                       "total":  297201.94999999995
+                                                                       "total":  297127.84999999992
                                                                    },
                                                                    {
                                                                        "nfs":  177,
@@ -15399,14 +15399,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  114683.87000000002,
+                                                                                     "vendas":  114805.17000000003,
                                                                                      "locacao":  31106.449999999997,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  39737.3
                                                                                  },
                                                                     "regiao":  "Sul",
                                                                     "uf":  "RS",
-                                                                    "total":  185527.62000000002
+                                                                    "total":  185648.92
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -15421,14 +15421,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  27911.550000000003,
+                                                                                     "vendas":  27837.45,
                                                                                      "locacao":  4685,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  12091
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "RJ",
-                                                                    "total":  44687.55
+                                                                    "total":  44613.450000000004
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -15630,31 +15630,31 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  117519.82,
+                                                                                     "vendas":  117472.62000000001,
                                                                                      "locacao":  1956,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  41823
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "MG",
-                                                                    "total":  161298.82
+                                                                    "total":  161251.62
                                                                 }
                                                             ],
                                                 "vendedores":  [
                                                                    {
                                                                        "nfs":  10,
                                                                        "nome":  "Site",
-                                                                       "total":  50267
+                                                                       "total":  50192.9
                                                                    },
                                                                    {
-                                                                       "nfs":  15,
+                                                                       "nfs":  17,
                                                                        "nome":  "Josiane Govoni Lanzarini",
-                                                                       "total":  15353.77
+                                                                       "total":  15475.070000000002
                                                                    },
                                                                    {
                                                                        "nfs":  40,
                                                                        "nome":  "Rogislei Vieira Padilha",
-                                                                       "total":  402858.64999999962
+                                                                       "total":  402811.4499999996
                                                                    },
                                                                    {
                                                                        "nfs":  19,
@@ -15795,14 +15795,14 @@
                                                                    },
                                                                    {
                                                                        "segmento":  {
-                                                                                        "vendas":  114683.87000000002,
+                                                                                        "vendas":  114805.17000000003,
                                                                                         "locacao":  31106.449999999997,
                                                                                         "exportacao":  0,
                                                                                         "servicos":  39737.3
                                                                                     },
                                                                        "regiao":  "Sul",
                                                                        "uf":  "RS",
-                                                                       "total":  185527.62000000002
+                                                                       "total":  185648.92
                                                                    },
                                                                    {
                                                                        "segmento":  {
@@ -15817,14 +15817,14 @@
                                                                    },
                                                                    {
                                                                        "segmento":  {
-                                                                                        "vendas":  27911.550000000003,
+                                                                                        "vendas":  27837.45,
                                                                                         "locacao":  4685,
                                                                                         "exportacao":  0,
                                                                                         "servicos":  12091
                                                                                     },
                                                                        "regiao":  "Sudeste",
                                                                        "uf":  "RJ",
-                                                                       "total":  44687.55
+                                                                       "total":  44613.450000000004
                                                                    },
                                                                    {
                                                                        "segmento":  {
@@ -16026,31 +16026,31 @@
                                                                    },
                                                                    {
                                                                        "segmento":  {
-                                                                                        "vendas":  117519.82,
+                                                                                        "vendas":  117472.62000000001,
                                                                                         "locacao":  1956,
                                                                                         "exportacao":  0,
                                                                                         "servicos":  41823
                                                                                     },
                                                                        "regiao":  "Sudeste",
                                                                        "uf":  "MG",
-                                                                       "total":  161298.82
+                                                                       "total":  161251.62
                                                                    }
                                                                ],
                                                    "vendedores":  [
                                                                       {
                                                                           "nfs":  10,
                                                                           "nome":  "Site",
-                                                                          "total":  50267
+                                                                          "total":  50192.9
                                                                       },
                                                                       {
-                                                                          "nfs":  15,
+                                                                          "nfs":  17,
                                                                           "nome":  "Josiane Govoni Lanzarini",
-                                                                          "total":  15353.77
+                                                                          "total":  15475.070000000002
                                                                       },
                                                                       {
                                                                           "nfs":  40,
                                                                           "nome":  "Rogislei Vieira Padilha",
-                                                                          "total":  402858.64999999962
+                                                                          "total":  402811.4499999996
                                                                       },
                                                                       {
                                                                           "nfs":  19,
@@ -16137,24 +16137,24 @@
                                                                },
                                                                {
                                                                    "n":  "F3 R$10k-19k",
-                                                                   "t":  1744302.11,
+                                                                   "t":  1755202.11,
                                                                    "l":  10000,
                                                                    "h":  19999,
-                                                                   "c":  128
+                                                                   "c":  129
                                                                },
                                                                {
                                                                    "n":  "F4 R$5k-9k",
-                                                                   "t":  890405.57000000007,
+                                                                   "t":  898905.57000000007,
                                                                    "l":  5000,
                                                                    "h":  9999,
-                                                                   "c":  130
+                                                                   "c":  131
                                                                },
                                                                {
                                                                    "n":  "F5 ate R$4.9k",
-                                                                   "t":  1090274.2600000007,
+                                                                   "t":  1099420.1600000008,
                                                                    "l":  0,
                                                                    "h":  4999,
-                                                                   "c":  816
+                                                                   "c":  829
                                                                }
                                                            ],
                                                 "estados":  [
@@ -16237,14 +16237,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  425533.39000000025,
-                                                                                     "locacao":  93480.1,
+                                                                                     "vendas":  425859.10000000027,
+                                                                                     "locacao":  95272.1,
                                                                                      "exportacao":  0,
-                                                                                     "servicos":  154848.12999999998
+                                                                                     "servicos":  155088.12999999998
                                                                                  },
                                                                     "regiao":  "Sul",
                                                                     "uf":  "RS",
-                                                                    "total":  673861.62000000116
+                                                                    "total":  676219.33000000112
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -16259,14 +16259,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  735656.36000000034,
-                                                                                     "locacao":  34360,
+                                                                                     "vendas":  749257.2000000003,
+                                                                                     "locacao":  35710,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  183694.31
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "SP",
-                                                                    "total":  953710.67000000027
+                                                                    "total":  968661.51000000024
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -16358,14 +16358,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  328461.41000000015,
+                                                                                     "vendas":  328600.21000000014,
                                                                                      "locacao":  48069.5,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  79319.350000000049
                                                                                  },
                                                                     "regiao":  "Sul",
                                                                     "uf":  "SC",
-                                                                    "total":  455850.25999999995
+                                                                    "total":  455989.05999999994
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -16402,14 +16402,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  580951.05000000016,
+                                                                                     "vendas":  592049.60000000021,
                                                                                      "locacao":  17962,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  107547.13000000002
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "MG",
-                                                                    "total":  706460.18000000028
+                                                                    "total":  717558.73000000033
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -16483,9 +16483,9 @@
                                                                        "total":  1785521.2499999977
                                                                    },
                                                                    {
-                                                                       "nfs":  165,
+                                                                       "nfs":  170,
                                                                        "nome":  "Josiane Govoni Lanzarini",
-                                                                       "total":  232199.85000000003
+                                                                       "total":  235341.85000000003
                                                                    },
                                                                    {
                                                                        "nfs":  12,
@@ -16498,31 +16498,31 @@
                                                                        "total":  931609.00000000291
                                                                    },
                                                                    {
-                                                                       "nfs":  204,
+                                                                       "nfs":  213,
                                                                        "nome":  "Mercado Livre",
-                                                                       "total":  385741.08000000031
+                                                                       "total":  386784.98000000033
                                                                    },
                                                                    {
-                                                                       "nfs":  131,
+                                                                       "nfs":  134,
                                                                        "nome":  "Gabriel Klein",
-                                                                       "total":  1353342.2500000002
+                                                                       "total":  1377462.2500000002
                                                                    },
                                                                    {
-                                                                       "nfs":  1,
+                                                                       "nfs":  2,
                                                                        "nome":  "Assistência Técnica",
-                                                                       "total":  1439
+                                                                       "total":  1679
                                                                    }
                                                                ],
                                                 "resumo":  {
                                                                "vendas":  {
-                                                                              "countNFs":  605,
-                                                                              "countClientes":  553,
-                                                                              "total":  4217111.6799999978
+                                                                              "countNFs":  617,
+                                                                              "countClientes":  565,
+                                                                              "total":  4242275.5799999973
                                                                           },
                                                                "locacao":  {
-                                                                               "countNFs":  180,
-                                                                               "countClientes":  130,
-                                                                               "total":  245843.35000000003
+                                                                               "countNFs":  185,
+                                                                               "countClientes":  133,
+                                                                               "total":  248985.35000000003
                                                                            },
                                                                "devolucoes":  {
                                                                                   "countNFs":  12,
@@ -16530,9 +16530,9 @@
                                                                                   "total":  138937.6
                                                                               },
                                                                "servicos":  {
-                                                                                "countNFs":  580,
-                                                                                "countClientes":  509,
-                                                                                "total":  933048.00000000291
+                                                                                "countNFs":  581,
+                                                                                "countClientes":  510,
+                                                                                "total":  933288.00000000291
                                                                             },
                                                                "exportacao":  {
                                                                                   "countNFs":  10,
@@ -16541,7 +16541,7 @@
                                                                               }
                                                            },
                                                 "decadas":  {
-                                                                "d1":  1218336.82,
+                                                                "d1":  1246882.7200000002,
                                                                 "d3":  2912582.5000000042,
                                                                 "d2":  1897190.22
                                                             },
@@ -16565,24 +16565,24 @@
                                                                   },
                                                                   {
                                                                       "n":  "F3 R$10k-19k",
-                                                                      "t":  42856.5,
+                                                                      "t":  53756.5,
                                                                       "l":  10000,
                                                                       "h":  19999,
-                                                                      "c":  3
-                                                                  },
-                                                                  {
-                                                                      "n":  "F4 R$5k-9k",
-                                                                      "t":  30563.68,
-                                                                      "l":  5000,
-                                                                      "h":  9999,
                                                                       "c":  4
                                                                   },
                                                                   {
+                                                                      "n":  "F4 R$5k-9k",
+                                                                      "t":  39063.68,
+                                                                      "l":  5000,
+                                                                      "h":  9999,
+                                                                      "c":  5
+                                                                  },
+                                                                  {
                                                                       "n":  "F5 ate R$4.9k",
-                                                                      "t":  11976.329999999998,
+                                                                      "t":  21122.23,
                                                                       "l":  0,
                                                                       "h":  4999,
-                                                                      "c":  25
+                                                                      "c":  41
                                                                   }
                                                               ],
                                                    "estados":  [
@@ -16599,14 +16599,14 @@
                                                                    },
                                                                    {
                                                                        "segmento":  {
-                                                                                        "vendas":  26910,
-                                                                                        "locacao":  0,
+                                                                                        "vendas":  27235.710000000003,
+                                                                                        "locacao":  1792,
                                                                                         "exportacao":  0,
-                                                                                        "servicos":  5533.4500000000007
+                                                                                        "servicos":  5773.4500000000007
                                                                                     },
                                                                        "regiao":  "Sul",
                                                                        "uf":  "RS",
-                                                                       "total":  32443.449999999997
+                                                                       "total":  34801.16
                                                                    },
                                                                    {
                                                                        "segmento":  {
@@ -16621,14 +16621,14 @@
                                                                    },
                                                                    {
                                                                        "segmento":  {
-                                                                                        "vendas":  540,
+                                                                                        "vendas":  678.8,
                                                                                         "locacao":  0,
                                                                                         "exportacao":  0,
                                                                                         "servicos":  0
                                                                                     },
                                                                        "regiao":  "Sul",
                                                                        "uf":  "SC",
-                                                                       "total":  540
+                                                                       "total":  678.8
                                                                    },
                                                                    {
                                                                        "segmento":  {
@@ -16654,14 +16654,14 @@
                                                                    },
                                                                    {
                                                                        "segmento":  {
-                                                                                        "vendas":  114379.51999999999,
-                                                                                        "locacao":  0,
+                                                                                        "vendas":  127980.35999999999,
+                                                                                        "locacao":  1350,
                                                                                         "exportacao":  0,
                                                                                         "servicos":  1213
                                                                                     },
                                                                        "regiao":  "Sudeste",
                                                                        "uf":  "SP",
-                                                                       "total":  115592.51999999999
+                                                                       "total":  130543.35999999999
                                                                    },
                                                                    {
                                                                        "segmento":  {
@@ -16676,14 +16676,14 @@
                                                                    },
                                                                    {
                                                                        "segmento":  {
-                                                                                        "vendas":  25022.510000000002,
+                                                                                        "vendas":  36121.06,
                                                                                         "locacao":  0,
                                                                                         "exportacao":  0,
                                                                                         "servicos":  0
                                                                                     },
                                                                        "regiao":  "Sudeste",
                                                                        "uf":  "MG",
-                                                                       "total":  25022.510000000002
+                                                                       "total":  36121.06
                                                                    },
                                                                    {
                                                                        "segmento":  {
@@ -16700,8 +16700,8 @@
                                                    "vendedores":  [
                                                                       {
                                                                           "nfs":  5,
-                                                                          "nome":  "Gabriel Klein",
-                                                                          "total":  108311
+                                                                          "nome":  "Josiane Govoni Lanzarini",
+                                                                          "total":  3142
                                                                       },
                                                                       {
                                                                           "nfs":  1,
@@ -16709,31 +16709,41 @@
                                                                           "total":  11565
                                                                       },
                                                                       {
-                                                                          "nfs":  10,
-                                                                          "nome":  "Gabriel Medeiros",
-                                                                          "total":  7425.4500000000007
-                                                                      },
-                                                                      {
                                                                           "nfs":  6,
                                                                           "nome":  "Rogislei Vieira Padilha",
                                                                           "total":  45653.9
                                                                       },
                                                                       {
-                                                                          "nfs":  13,
+                                                                          "nfs":  8,
+                                                                          "nome":  "Gabriel Klein",
+                                                                          "total":  132431
+                                                                      },
+                                                                      {
+                                                                          "nfs":  10,
+                                                                          "nome":  "Gabriel Medeiros",
+                                                                          "total":  7425.4500000000007
+                                                                      },
+                                                                      {
+                                                                          "nfs":  22,
                                                                           "nome":  "Mercado Livre",
-                                                                          "total":  35463.16
+                                                                          "total":  36507.060000000012
+                                                                      },
+                                                                      {
+                                                                          "nfs":  1,
+                                                                          "nome":  "Assistência Técnica",
+                                                                          "total":  240
                                                                       }
                                                                   ],
                                                    "resumo":  {
                                                                   "vendas":  {
-                                                                                 "countNFs":  25,
-                                                                                 "countClientes":  25,
-                                                                                 "total":  200993.06
+                                                                                 "countNFs":  37,
+                                                                                 "countClientes":  37,
+                                                                                 "total":  226156.95999999996
                                                                              },
                                                                   "locacao":  {
-                                                                                  "countNFs":  0,
-                                                                                  "countClientes":  0,
-                                                                                  "total":  0
+                                                                                  "countNFs":  5,
+                                                                                  "countClientes":  5,
+                                                                                  "total":  3142
                                                                               },
                                                                   "devolucoes":  {
                                                                                      "countNFs":  0,
@@ -16741,9 +16751,9 @@
                                                                                      "total":  0
                                                                                  },
                                                                   "servicos":  {
-                                                                                   "countNFs":  10,
-                                                                                   "countClientes":  10,
-                                                                                   "total":  7425.4500000000007
+                                                                                   "countNFs":  11,
+                                                                                   "countClientes":  11,
+                                                                                   "total":  7665.4500000000007
                                                                                },
                                                                   "exportacao":  {
                                                                                      "countNFs":  0,
@@ -16752,11 +16762,11 @@
                                                                                  }
                                                               },
                                                    "decadas":  {
-                                                                   "d1":  208418.50999999998,
+                                                                   "d1":  236964.40999999995,
                                                                    "d3":  0,
                                                                    "d2":  0
                                                                },
-                                                   "periodoStr":  "01/04/2026 a 06/04/2026"
+                                                   "periodoStr":  "01/04/2026 a 07/04/2026"
                                                }
                                 },
                     "2024-10":  {
@@ -17750,14 +17760,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  623360.09000000008,
+                                                                                     "vendas":  623481.39,
                                                                                      "locacao":  215377.64999999997,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  314970.39999999991
                                                                                  },
                                                                     "regiao":  "Sul",
                                                                     "uf":  "RS",
-                                                                    "total":  1153708.14
+                                                                    "total":  1153829.44
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -17838,14 +17848,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  491051.08,
+                                                                                     "vendas":  490976.98000000004,
                                                                                      "locacao":  19823,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  107135.77999999998
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "RJ",
-                                                                    "total":  618009.8600000001
+                                                                    "total":  617935.76000000013
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -17915,14 +17925,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  1187763.3699999999,
+                                                                                     "vendas":  1187716.1700000002,
                                                                                      "locacao":  9471,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  291722.99999999994
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "MG",
-                                                                    "total":  1488957.37
+                                                                    "total":  1488910.1700000004
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -17975,9 +17985,9 @@
                                                                        "total":  2229371.72
                                                                    },
                                                                    {
-                                                                       "nfs":  15,
+                                                                       "nfs":  17,
                                                                        "nome":  "Josiane Govoni Lanzarini",
-                                                                       "total":  15353.77
+                                                                       "total":  15475.070000000002
                                                                    },
                                                                    {
                                                                        "nfs":  151,
@@ -18002,12 +18012,12 @@
                                                                    {
                                                                        "nfs":  342,
                                                                        "nome":  "Rogislei Vieira Padilha",
-                                                                       "total":  3110697.7799999993
+                                                                       "total":  3110650.5799999991
                                                                    },
                                                                    {
                                                                        "nfs":  91,
                                                                        "nome":  "Site",
-                                                                       "total":  223103.15999999992
+                                                                       "total":  223029.05999999991
                                                                    },
                                                                    {
                                                                        "nfs":  37,
@@ -18613,14 +18623,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  261592.69000000003,
+                                                                                     "vendas":  261713.99000000005,
                                                                                      "locacao":  92926.949999999983,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  126413.2
                                                                                  },
                                                                     "regiao":  "Sul",
                                                                     "uf":  "RS",
-                                                                    "total":  480932.83999999997
+                                                                    "total":  481054.13999999996
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -18723,14 +18733,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  174157.29000000007,
+                                                                                     "vendas":  174083.19000000006,
                                                                                      "locacao":  10297,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  38495.08
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "RJ",
-                                                                    "total":  222949.37000000005
+                                                                    "total":  222875.27000000005
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -18800,14 +18810,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  428358.16000000003,
+                                                                                     "vendas":  428310.96000000008,
                                                                                      "locacao":  3183,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  121827.35
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "MG",
-                                                                    "total":  553368.50999999989
+                                                                    "total":  553321.30999999994
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -18847,12 +18857,12 @@
                                                                    {
                                                                        "nfs":  35,
                                                                        "nome":  "Site",
-                                                                       "total":  88279.989999999976
+                                                                       "total":  88205.889999999985
                                                                    },
                                                                    {
-                                                                       "nfs":  15,
+                                                                       "nfs":  17,
                                                                        "nome":  "Josiane Govoni Lanzarini",
-                                                                       "total":  15353.77
+                                                                       "total":  15475.070000000002
                                                                    },
                                                                    {
                                                                        "nfs":  64,
@@ -18867,7 +18877,7 @@
                                                                    {
                                                                        "nfs":  138,
                                                                        "nome":  "Rogislei Vieira Padilha",
-                                                                       "total":  1283516.2899999991
+                                                                       "total":  1283469.0899999989
                                                                    },
                                                                    {
                                                                        "nfs":  100,
@@ -20295,14 +20305,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  474102.39,
+                                                                                     "vendas":  474223.69,
                                                                                      "locacao":  150237.34999999998,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  206657.04999999996
                                                                                  },
                                                                     "regiao":  "Sul",
                                                                     "uf":  "RS",
-                                                                    "total":  830996.78999999969
+                                                                    "total":  831118.08999999973
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -20405,14 +20415,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  280984.60000000009,
+                                                                                     "vendas":  280910.50000000012,
                                                                                      "locacao":  15169,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  64727.87999999999
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "RJ",
-                                                                    "total":  360881.4800000001
+                                                                    "total":  360807.38000000012
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -20482,14 +20492,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  796047.50999999989,
+                                                                                     "vendas":  796000.30999999994,
                                                                                      "locacao":  5943,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  172358.55
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "MG",
-                                                                    "total":  974349.05999999994
+                                                                    "total":  974301.86
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -20534,7 +20544,7 @@
                                                                    {
                                                                        "nfs":  74,
                                                                        "nome":  "Site",
-                                                                       "total":  162560.07999999993
+                                                                       "total":  162485.97999999992
                                                                    },
                                                                    {
                                                                        "nfs":  106,
@@ -20549,12 +20559,12 @@
                                                                    {
                                                                        "nfs":  242,
                                                                        "nome":  "Rogislei Vieira Padilha",
-                                                                       "total":  2282247.2399999974
+                                                                       "total":  2282200.0399999972
                                                                    },
                                                                    {
-                                                                       "nfs":  15,
+                                                                       "nfs":  17,
                                                                        "nome":  "Josiane Govoni Lanzarini",
-                                                                       "total":  15353.77
+                                                                       "total":  15475.070000000002
                                                                    },
                                                                    {
                                                                        "nfs":  179,
@@ -22043,14 +22053,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  1156508.3200000005,
+                                                                                     "vendas":  1156629.6200000003,
                                                                                      "locacao":  345857.19999999995,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  612699.88000000047
                                                                                  },
                                                                     "regiao":  "Sul",
                                                                     "uf":  "RS",
-                                                                    "total":  2115065.4000000004
+                                                                    "total":  2115186.7
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -22131,14 +22141,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  1095107.3100000005,
+                                                                                     "vendas":  1095033.2100000004,
                                                                                      "locacao":  31530.65,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  190125.14999999994
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "RJ",
-                                                                    "total":  1316763.1100000006
+                                                                    "total":  1316689.0100000005
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -22208,14 +22218,14 @@
                                                                 },
                                                                 {
                                                                     "segmento":  {
-                                                                                     "vendas":  2169084.47,
+                                                                                     "vendas":  2169037.2700000005,
                                                                                      "locacao":  21050,
                                                                                      "exportacao":  0,
                                                                                      "servicos":  516822.84999999963
                                                                                  },
                                                                     "regiao":  "Sudeste",
                                                                     "uf":  "MG",
-                                                                    "total":  2706957.3199999961
+                                                                    "total":  2706910.1199999964
                                                                 },
                                                                 {
                                                                     "segmento":  {
@@ -22278,9 +22288,9 @@
                                                                        "total":  199795.60999999996
                                                                    },
                                                                    {
-                                                                       "nfs":  206,
+                                                                       "nfs":  208,
                                                                        "nome":  "Josiane Govoni Lanzarini",
-                                                                       "total":  331765.27
+                                                                       "total":  331886.57
                                                                    },
                                                                    {
                                                                        "nfs":  308,
@@ -22295,12 +22305,12 @@
                                                                    {
                                                                        "nfs":  627,
                                                                        "nome":  "Rogislei Vieira Padilha",
-                                                                       "total":  5884624.870000001
+                                                                       "total":  5884577.6700000018
                                                                    },
                                                                    {
                                                                        "nfs":  120,
                                                                        "nome":  "Site",
-                                                                       "total":  298445.14999999997
+                                                                       "total":  298371.04999999993
                                                                    },
                                                                    {
                                                                        "nfs":  548,
