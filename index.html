@@ -265,7 +265,7 @@
 
         renderResumo(data, prevData, ytd);
         renderRegiao(data);
-        renderVendedor(data);
+        renderVendedor(data, y);
         renderFaixas(data);
     }
 
@@ -360,9 +360,15 @@
         `).join('');
     }
 
-    function renderVendedor(cur) {
+    function renderVendedor(cur, year) {
         const bruto = cur.resumo.vendas.total + cur.resumo.servicos.total + cur.resumo.locacao.total + cur.resumo.exportacao.total;
-        const list = (cur.vendedores||[]).sort((a,b)=>b.total-a.total);
+        let list = (cur.vendedores||[]).sort((a,b)=>b.total-a.total);
+        
+        // Filtro de Regra de Negócio: Nilson Borges não faz parte de 2026
+        if (year === '2026') {
+            list = list.filter(v => !v.nome.toUpperCase().includes('NILSON BORGES'));
+        }
+        
         const top10 = list.slice(0, 10);
         
         // Gráfico 1: Ranking de Faturamento
