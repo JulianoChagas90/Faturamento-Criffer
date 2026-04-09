@@ -7,34 +7,75 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
     <script src="data.js"></script>
     <style>
-        /* CSS Restaurado da Versão 07/04/2026 - 18:00 */
+        :root {
+            --bg-dash: #000;
+            --bg-panel: #111;
+            --bg-input: #1a1a1a;
+            --border: #222;
+            --border-strong: #333;
+            --text-main: #fff;
+            --text-muted: #888;
+            --text-label: #666;
+            --text-sub: #555;
+            --accent: #ec6e2a;
+            --neg: #f07070;
+            --gray-bar: #525252;
+        }
+
+        [data-theme="light"] {
+            --bg-dash: #F8F9FA;
+            --bg-panel: #ffffff;
+            --bg-input: #ffffff;
+            --border: #dee2e6;
+            --border-strong: #ced4da;
+            --text-main: #212529;
+            --text-muted: #6c757d;
+            --text-label: #495057;
+            --text-sub: #adb5bd;
+            --gray-bar: #dee2e6;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #000; color: #fff; }
+        body { background: var(--bg-dash); color: var(--text-main); transition: background 0.3s, color 0.3s; }
         #dash {
-            background: #000;
-            color: #fff;
+            background: var(--bg-dash);
+            color: var(--text-main);
             font-family: Tahoma, sans-serif;
             min-height: 100vh;
             padding: 0 0 40px;
         }
         .header {
-            background: #000;
-            border-bottom: 2px solid #ec6e2a;
+            background: var(--bg-dash);
+            border-bottom: 2px solid var(--accent);
             padding: 18px 28px 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-        .logo img {
-            height: 32px;
-            display: block;
-        }
-        .header-sub { font-size: 12px; color: #888; margin-top: 2px; }
+        .logo img { height: 32px; display: block; }
+        .header-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
         
+        .header-actions { display: flex; align-items: center; gap: 15px; }
+
+        .theme-toggle {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            font-family: inherit;
+            text-transform: uppercase;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+        .theme-toggle:hover { border-color: var(--accent); color: var(--text-main); }
+
         select { 
-            background: #1a1a1a; 
-            color: #ccc; 
-            border: 1px solid #333; 
+            background: var(--bg-input); 
+            color: var(--text-main); 
+            border: 1px solid var(--border); 
             border-radius: 6px; 
             padding: 6px 14px; 
             font-size: 12px; 
@@ -43,27 +84,27 @@
             transition: 0.2s;
             font-family: Tahoma, sans-serif;
         }
-        select:hover { border-color: #ec6e2a; }
+        select:hover { border-color: var(--accent); }
 
         .tabs {
             display: flex;
-            background: #111;
-            border-bottom: 1px solid #222;
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border);
             padding: 0 28px;
             overflow-x: auto;
         }
         .tab {
             padding: 13px 22px;
             font-size: 13px;
-            color: #666;
+            color: var(--text-label);
             cursor: pointer;
             border-bottom: 2px solid transparent;
             white-space: nowrap;
             transition: color 0.2s;
             font-weight: 500;
         }
-        .tab:hover { color: #ccc; }
-        .tab.active { color: #ec6e2a; border-bottom-color: #ec6e2a; font-weight: 600; }
+        .tab:hover { color: var(--text-main); }
+        .tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
         
         .container { padding: 24px 28px 0; display: none; }
         .container.active { display: block; }
@@ -75,12 +116,13 @@
             margin-bottom: 26px;
         }
         .kpi {
-            background: #111;
-            border: 1px solid #222;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
             border-radius: 8px;
             padding: 16px 18px;
             position: relative;
             overflow: hidden;
+            transition: background 0.3s;
         }
         .kpi::before { 
             content: ''; 
@@ -89,49 +131,50 @@
             left: 0; 
             width: 4px; 
             height: 100%; 
-            background: #ec6e2a; 
+            background: var(--accent); 
         }
-        .kpi.muted::before { background: #525252; }
-        .kpi.neg::before { background: #f07070; }
+        .kpi.muted::before { background: var(--gray-bar); }
+        .kpi.neg::before { background: var(--neg); }
         
-        .kpi-label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-        .kpi-value { font-size: 22px; font-weight: 700; color: #fff; }
-        .kpi-value.orange { color: #ec6e2a; }
-        .kpi-value.muted { font-size: 16px; color: #bbb; }
-        .kpi-sub { font-size: 11px; color: #555; margin-top: 4px; }
+        .kpi-label { font-size: 11px; color: var(--text-label); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+        .kpi-value { font-size: 22px; font-weight: 700; color: var(--text-main); }
+        .kpi-value.orange { color: var(--accent); }
+        .kpi-value.muted { font-size: 16px; color: var(--text-muted); }
+        .kpi-sub { font-size: 11px; color: var(--text-sub); margin-top: 4px; }
         
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
         .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 24px; }
         
         .panel {
-            background: #111;
-            border: 1px solid #222;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
             border-radius: 8px;
             padding: 18px 20px;
+            transition: background 0.3s;
         }
-        .panel-title { font-size: 12px; color: #888; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.8px; }
+        .panel-title { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.8px; }
         
         .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-        .bar-label { font-size: 12px; color: #aaa; width: 140px; text-align: right; flex-shrink: 0; }
-        .bar-track { flex: 1; background: #1a1a1a; border-radius: 3px; height: 22px; overflow: hidden; position: relative; }
-        .bar-fill { height: 100%; background: #ec6e2a; border-radius: 3px; transition: width 0.6s cubic-bezier(0.1, 0, 0.1, 1); }
-        .bar-fill.gray { background: #525252; }
+        .bar-label { font-size: 12px; color: var(--text-muted); width: 140px; text-align: right; flex-shrink: 0; }
+        .bar-track { flex: 1; background: var(--bg-input); border-radius: 3px; height: 22px; overflow: hidden; position: relative; }
+        .bar-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.6s cubic-bezier(0.1, 0, 0.1, 1); }
+        .bar-fill.gray { background: var(--gray-bar); }
         .bar-val { font-size: 11px; color: #fff; font-weight: 600; white-space: nowrap; padding-left: 8px; line-height: 22px; }
-        .bar-pct { font-size: 11px; color: #888; min-width: 38px; text-align: right; flex-shrink: 0; }
+        .bar-pct { font-size: 11px; color: var(--text-muted); min-width: 38px; text-align: right; flex-shrink: 0; }
         
         table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        th { font-size: 11px; font-weight: 600; color: #666; letter-spacing: 0.5px; text-transform: uppercase; padding: 8px; text-align: left; border-bottom: 1px solid #222; }
-        td { padding: 9px 8px; border-bottom: 1px solid #1a1a1a; color: #ccc; }
-        tr:hover td { background: #161616; }
+        th { font-size: 11px; font-weight: 600; color: var(--text-label); letter-spacing: 0.5px; text-transform: uppercase; padding: 8px; text-align: left; border-bottom: 1px solid var(--border); }
+        td { padding: 9px 8px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+        tr:hover td { background: var(--bg-input); }
 
-        .seg-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #1a1a1a; }
-        .seg-name { font-size: 13px; color: #ccc; }
-        .seg-val { font-size: 13px; color: #fff; font-weight: 600; }
-        .seg-ticket { font-size: 11px; color: #666; }
-        .neg { color: #f07070 !important; }
+        .seg-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+        .seg-name { font-size: 13px; color: var(--text-muted); }
+        .seg-val { font-size: 13px; color: var(--text-main); font-weight: 600; }
+        .seg-ticket { font-size: 11px; color: var(--text-label); }
+        .neg { color: var(--neg) !important; }
 
         .donut-legend { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
-        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #aaa; }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); }
         .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
 
         @media (max-width: 700px) {
@@ -147,7 +190,10 @@
             <div class="logo"><img src="Criffer-logo.webp" alt="CRIFFER"></div>
             <div class="header-sub">Relatório de Faturamento — Fonte: SAP</div>
         </div>
-        <select id="periodSelector" onchange="updateDashboard(this.value)"></select>
+        <div class="header-actions">
+            <button class="theme-toggle" onclick="toggleTheme()">Alternar Tema</button>
+            <select id="periodSelector" onchange="updateDashboard(this.value)"></select>
+        </div>
     </div>
 
     <div class="tabs">
@@ -423,7 +469,40 @@
     function updateChart(id, type, data, options) {
         if(chartInstances[id]) chartInstances[id].destroy();
         const ctx = document.getElementById(id);
-        if(ctx) chartInstances[id] = new Chart(ctx, { type, data, options: { responsive: true, maintainAspectRatio: false, ...options } });
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        const gridColor = isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)';
+        const textColor = isLight ? '#495057' : '#888';
+
+        if(ctx) {
+            chartInstances[id] = new Chart(ctx, { 
+                type, 
+                data, 
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    ...options,
+                    scales: (type === 'bar') ? {
+                        y: { 
+                            ticks: { color: textColor },
+                            grid: { color: gridColor },
+                            ... (options.scales?.y || {})
+                        },
+                        x: { 
+                            ticks: { color: textColor },
+                            grid: { display: false },
+                            ... (options.scales?.x || {})
+                        }
+                    } : {}
+                } 
+            });
+        }
+    }
+
+    function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const target = current === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', target);
+        updateDashboard(document.getElementById('periodSelector').value);
     }
 
     initHeader();
