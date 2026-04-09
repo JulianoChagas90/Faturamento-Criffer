@@ -25,13 +25,9 @@
             align-items: center;
             justify-content: space-between;
         }
-        .logo {
-            font-family: 'Arial Black', sans-serif;
-            font-size: 28px;
-            font-weight: 900;
-            letter-spacing: 3px;
-            color: #ec6e2a;
-            text-transform: uppercase;
+        .logo img {
+            height: 32px;
+            display: block;
         }
         .header-sub { font-size: 12px; color: #888; margin-top: 2px; }
         
@@ -148,7 +144,7 @@
 <div id="dash">
     <div class="header">
         <div>
-            <div class="logo">CRIFFER</div>
+            <div class="logo"><img src="Criffer-logo.webp" alt="CRIFFER"></div>
             <div class="header-sub">Relatório de Faturamento — Fonte: SAP</div>
         </div>
         <select id="periodSelector" onchange="updateDashboard(this.value)"></select>
