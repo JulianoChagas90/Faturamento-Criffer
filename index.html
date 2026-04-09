@@ -197,9 +197,18 @@
     </div>
 
     <div id="tab-vendedor" class="container">
-        <div class="panel" style="margin-bottom:24px">
-            <div class="panel-title">Ranking de Vendedores</div>
-            <div id="vendedor-ticket-bars" style="margin-bottom:20px"></div>
+        <div class="two-col" style="margin-bottom:24px">
+            <div class="panel">
+                <div class="panel-title">Ranking de Fendedores (Vendas)</div>
+                <div id="vendedor-ranking-bars"></div>
+            </div>
+            <div class="panel">
+                <div class="panel-title">Ticket Médio por Vendedor</div>
+                <div id="vendedor-ticket-bars"></div>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-title">Detalhamento dos Vendedores</div>
             <table><thead><tr><th>Vendedor</th><th style="text-align:right">NFs</th><th style="text-align:right">Total</th><th style="text-align:right">% Part.</th></tr></thead><tbody id="vendedor-tbody"></tbody></table>
         </div>
     </div>
@@ -354,12 +363,23 @@
     function renderVendedor(cur) {
         const bruto = cur.resumo.vendas.total + cur.resumo.servicos.total + cur.resumo.locacao.total + cur.resumo.exportacao.total;
         const list = (cur.vendedores||[]).sort((a,b)=>b.total-a.total);
+        const top10 = list.slice(0, 10);
         
-        document.getElementById('vendedor-ticket-bars').innerHTML = list.slice(0, 10).map(v => `
+        // Gráfico 1: Ranking de Faturamento
+        document.getElementById('vendedor-ranking-bars').innerHTML = top10.map(v => `
             <div class="bar-row">
-                <div class="bar-label" style="width:160px">${v.nome}</div>
-                <div class="bar-track"><div class="bar-fill ${(v.total/v.nfs) > 5000 ? '' : 'gray'}" style="width: ${(v.total/(list[0].total||1)*100)}%;"></div><span class="bar-val">${fmt(v.total/v.nfs)} (ticket)</span></div>
-                <div class="bar-pct" style="color:#fff">${fmt(v.total)}</div>
+                <div class="bar-label" style="width:140px">${v.nome}</div>
+                <div class="bar-track"><div class="bar-fill" style="width: ${(v.total/(list[0].total||1)*100)}%;"><span class="bar-val" style="color:#fff">${fmt(v.total)}</span></div></div>
+                <div class="bar-pct" style="color:#fff; font-weight:700">${pct(v.total/(bruto||1))}</div>
+            </div>
+        `).join('');
+
+        // Gráfico 2: Ticket Médio
+        const maxTicket = Math.max(...top10.map(v => v.total/(v.nfs||1)));
+        document.getElementById('vendedor-ticket-bars').innerHTML = top10.map(v => `
+            <div class="bar-row">
+                <div class="bar-label" style="width:140px">${v.nome}</div>
+                <div class="bar-track"><div class="bar-fill" style="width: ${((v.total/(v.nfs||1))/maxTicket*100)}%;"><span class="bar-val" style="color:#fff">${fmt(v.total/(v.nfs||1))}</span></div></div>
             </div>
         `).join('');
 
