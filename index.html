@@ -171,7 +171,7 @@
             <div class="panel">
                 <div class="panel-title">Participação no Faturamento</div>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; align-items:center">
-                    <div style="height:200px"><canvas id="donutChart"></canvas></div>
+                    <div style="height:350px"><canvas id="donutChart"></canvas></div>
                     <div id="donut-legend" class="donut-legend"></div>
                 </div>
             </div>
@@ -225,7 +225,7 @@
 
 <script>
     const d = DASHBOARD_DATA;
-    const fmt = v => 'R$ ' + (v||0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const fmt = v => 'R$ ' + (v||0).toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
     const pct = v => (v||0).toLocaleString('pt-BR', { style: 'percent', minimumFractionDigits: 1 });
     let chartInstances = {};
 
@@ -301,7 +301,12 @@
                 <div><div class="seg-name">${s.n}</div><div class="seg-ticket">${s.nfs} NFs · ticket ${fmt(s.v/(s.nfs||1))}</div></div>
                 <div style="text-align:right"><div class="seg-val">${fmt(s.v)}</div><div class="seg-ticket" style="color:#ec6e2a">${pct(s.v/(bruto||1))}</div></div>
             </div>
-        `).join('');
+        `).join('') + `
+            <div class="seg-row" style="border-bottom:none">
+                <div><div class="seg-name neg">Devoluções</div><div class="seg-ticket">${cur.resumo.devolucoes.countNFs} NFs · ticket ${fmt(cur.resumo.devolucoes.total/(cur.resumo.devolucoes.countNFs||1))}</div></div>
+                <div style="text-align:right"><div class="seg-val neg">- ${fmt(cur.resumo.devolucoes.total)}</div><div class="seg-ticket">${pct(cur.resumo.devolucoes.total/(bruto||1))}</div></div>
+            </div>
+        `;
 
         updateChart('donutChart', 'doughnut', {
             labels: segs.map(s=>s.n),
