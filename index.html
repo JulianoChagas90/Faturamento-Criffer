@@ -400,14 +400,14 @@
         const maxF = Math.max(...cur.faixas.map(f=>f.t));
 
         document.getElementById('faixa-kpis').innerHTML = cur.faixas.map(f => `
-            <div class="kpi"><div class="kpi-label">${f.n}</div><div class="kpi-value">${pct(f.t/(bruto||1))}</div><div class="kpi-sub">${f.c} clientes</div></div>
+            <div class="kpi"><div class="kpi-label">${f.n}</div><div class="kpi-value">${pct(f.t/(bruto||1))}</div><div class="kpi-sub" style="color:#fff; font-weight:700">${f.c} clientes</div></div>
         `).join('');
 
         document.getElementById('faixa-bars').innerHTML = cur.faixas.map(f => `
             <div class="bar-row">
                 <div class="bar-label" style="width:120px">${f.n}</div>
-                <div class="bar-track"><div class="bar-fill" style="width: ${(f.t/maxF*100)}%;"></div><span class="bar-val">${fmt(f.t)}</span></div>
-                <div class="bar-pct">${pct(f.t/(bruto||1))}</div>
+                <div class="bar-track"><div class="bar-fill" style="width: ${(f.t/maxF*100)}%;"><span class="bar-val" style="color:#fff">${pct(f.t/(bruto||1))}</span></div></div>
+                <div class="bar-pct" style="color:#fff; font-weight:700">${fmt(f.t)}</div>
             </div>
         `).join('');
 
