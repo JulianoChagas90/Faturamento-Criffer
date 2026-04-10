@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRIFFER — Central de Dashboards</title>
+    <style>
+        :root {
+            --bg-dash: #000;
+            --bg-panel: #111;
+            --bg-input: #1a1a1a;
+            --border: #222;
+            --border-strong: #333;
+            --text-main: #fff;
+            --text-muted: #888;
+            --text-label: #666;
+            --text-sub: #555;
+            --accent: #ec6e2a;
+            --neg: #f07070;
+            --gray-bar: #525252;
+            --salmon: #ffbb96;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--bg-dash);
+            color: var(--text-main);
+            font-family: Tahoma, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            background: var(--bg-dash);
+            border-bottom: 2px solid var(--accent);
+            padding: 18px 28px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: var(--accent);
+            font-family: 'Arial Black', Arial, sans-serif;
+            text-transform: uppercase;
+        }
+        .logo span { color: #fff; }
+        .header-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 3px;
+            letter-spacing: 0.5px;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .badge-user {
+            background: var(--bg-input);
+            border: 1px solid var(--border-strong);
+            color: var(--text-muted);
+            font-size: 11px;
+            padding: 6px 14px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .badge-user::before {
+            content: '';
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: inline-block;
+        }
+
+        /* ── HERO SECTION ── */
+        .hero {
+            padding: 52px 28px 36px;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: 'CRIFFER';
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            font-size: 160px;
+            font-weight: 900;
+            color: rgba(236,110,42,0.04);
+            letter-spacing: 8px;
+            font-family: 'Arial Black', Arial, sans-serif;
+            pointer-events: none;
+            user-select: none;
+        }
+        .hero-eyebrow {
+            font-size: 10px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .hero-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+        .hero-title span { color: var(--accent); }
+        .hero-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            max-width: 560px;
+            line-height: 1.7;
+        }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-panel);
+            overflow-x: auto;
+        }
+        .stat-item {
+            flex: 1;
+            min-width: 140px;
+            padding: 16px 24px;
+            border-right: 1px solid var(--border);
+            position: relative;
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: transparent;
+            transition: background 0.3s;
+        }
+        .stat-item:hover::before { background: var(--accent); }
+        .stat-label {
+            font-size: 10px;
+            color: var(--text-label);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        .stat-value.orange { color: var(--accent); }
+        .stat-sub {
+            font-size: 10px;
+            color: var(--text-sub);
+            margin-top: 2px;
+        }
+
+        /* ── MAIN CONTENT ── */
+        .main {
+            padding: 36px 28px 60px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+        .section-title {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 600;
+        }
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ── DASHBOARD GRID ── */
+        .dash-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 18px;
+            margin-bottom: 44px;
+        }
+
+        .dash-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px 22px 20px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.25s, transform 0.2s, box-shadow 0.25s;
+            text-decoration: none;
+            display: block;
+        }
+        .dash-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: var(--card-accent, var(--accent));
+            transition: width 0.25s;
+        }
+        .dash-card:hover {
+            border-color: var(--card-accent, var(--accent));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+        .dash-card:hover::before { width: 6px; }
+
+        .dash-card-icon {
+            font-size: 28px;
+            margin-bottom: 14px;
+            display: block;
+        }
+        .dash-card-tag {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--card-accent, var(--accent));
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .dash-card-tag::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .dash-card-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            line-height: 1.25;
+        }
+        .dash-card-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.65;
+            margin-bottom: 18px;
+        }
+        .dash-card-metrics {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+        .dash-metric {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .dash-metric-label {
+            font-size: 9px;
+            color: var(--text-label);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .dash-metric-val {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+        .dash-metric-val.accent { color: var(--card-accent, var(--accent)); }
+
+        .dash-card-arrow {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: var(--text-label);
+            transition: background 0.2s, border-color 0.2s, color 0.2s;
+        }
+        .dash-card:hover .dash-card-arrow {
+            background: var(--card-accent, var(--accent));
+            border-color: var(--card-accent, var(--accent));
+            color: #fff;
+        }
+
+        /* STATUS BADGE */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            position: absolute;
+            top: 14px;
+            right: 14px;
+        }
+        .status-badge.live {
+            background: rgba(236,110,42,0.12);
+            color: var(--accent);
+            border: 1px solid rgba(236,110,42,0.3);
+        }
+        .status-badge.live::before {
+            content: '';
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: pulse 1.5s infinite;
+        }
+        .status-badge.soon {
+            background: rgba(82,82,82,0.2);
+            color: var(--text-label);
+            border: 1px solid var(--border);
+        }
+        .status-badge.new {
+            background: rgba(255,187,150,0.12);
+            color: var(--salmon);
+            border: 1px solid rgba(255,187,150,0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ── QUICK ACCESS ── */
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        .quick-btn {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            text-decoration: none;
+        }
+        .quick-btn:hover {
+            border-color: var(--accent);
+            background: var(--bg-panel);
+        }
+        .quick-btn-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .quick-btn-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        .quick-btn-sub {
+            font-size: 10px;
+            color: var(--text-label);
+            margin-top: 2px;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 16px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-panel);
+        }
+        .footer-brand {
+            font-size: 11px;
+            color: var(--text-label);
+        }
+        .footer-brand strong { color: var(--accent); }
+        .footer-date {
+            font-size: 10px;
+            color: var(--text-sub);
+        }
+
+        @media (max-width: 700px) {
+            .hero::before { display: none; }
+            .hero-title { font-size: 24px; }
+            .stats-bar { flex-wrap: wrap; }
+            .dash-grid { grid-template-columns: 1fr; }
+            .quick-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div>
+        <div class="logo">CRIFFER<span style="color:var(--text-muted);font-weight:400;font-size:14px;letter-spacing:1px;"> &nbsp;BI</span></div>
+        <div class="header-sub">Central de Dashboards — Business Intelligence</div>
+    </div>
+    <div class="header-right">
+        <div class="badge-user">Equipe Marketing</div>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-eyebrow">Everything Matters</div>
+    <div class="hero-title">Selecione um <span>Dashboard</span></div>
+    <div class="hero-desc">Acesse os painéis de acompanhamento em tempo real. Cada dashboard oferece uma visão estratégica de uma área específica do negócio.</div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+    <div class="stat-item">
+        <div class="stat-label">Dashboards Ativos</div>
+        <div class="stat-value orange">3</div>
+        <div class="stat-sub">de 5 planejados</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-label">Última Atualização</div>
+        <div class="stat-value" style="font-size:14px">Hoje, 08:00</div>
+        <div class="stat-sub">SAP · automático</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-label">Fonte de Dados</div>
+        <div class="stat-value" style="font-size:14px">SAP ERP</div>
+        <div class="stat-sub">integração ativa</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-label">Período Vigente</div>
+        <div class="stat-value" style="font-size:14px">Mar/2025</div>
+        <div class="stat-sub">competência atual</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-label">Usuários Online</div>
+        <div class="stat-value orange">—</div>
+        <div class="stat-sub">acesso individual</div>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+    <!-- DASHBOARDS PRINCIPAIS -->
+    <div class="section-header">
+        <div class="section-title">Dashboards Principais</div>
+        <div class="section-line"></div>
+    </div>
+
+    <div class="dash-grid">
+
+        <!-- FATURAMENTO -->
+        <a href="index.html" class="dash-card" style="--card-accent: #ec6e2a;">
+            <span class="status-badge live">● Ao vivo</span>
+            <span class="dash-card-icon">📊</span>
+            <div class="dash-card-tag">Financeiro</div>
+            <div class="dash-card-title">Dashboard de Faturamento</div>
+            <div class="dash-card-desc">Acompanhe o faturamento bruto e líquido, devoluções, segmentação por tipo de produto e distribuição por décadas do mês.</div>
+            <div class="dash-card-metrics">
+                <div class="dash-metric">
+                    <div class="dash-metric-label">Visões</div>
+                    <div class="dash-metric-val">4 abas</div>
+                </div>
+                <div class="dash-metric">
+                    <div class="dash-metric-label">Granularidade</div>
+                    <div class="dash-metric-val">Mensal · YTD</div>
+                </div>
+                <div class="dash-metric">
+                    <div class="dash-metric-label">Cobertura</div>
+                    <div class="dash-metric-val accent">Regiões · UFs</div>
+                </div>
+            </div>
+            <div class="dash-card-arrow">→</div>
+        </a>
+
+        <!-- RESULTADO MENSAL DE COBRANÇA -->
+        <a href="#" class="dash-card" style="--card-accent: #b5b5b5;" onclick="return false;">
+            <span class="status-badge soon">Em breve</span>
+            <span class="dash-card-icon">🧾</span>
+            <div class="dash-card-tag">Cobrança</div>
+            <div class="dash-card-title">Resultado Mensal de Cobrança</div>
+            <div class="dash-card-desc">Visão consolidada das cobranças do mês: valores emitidos, recebidos, em aberto e taxa de conversão por carteira.</div>
+            <div class="dash-card-metrics">
+                <div class="dash-metric">
+                    <div class="dash-metric-label">Visões</div>
+                    <div class="dash-metric-val">—</div>
+                </div>
+                <div class="dash-metric">
+                    <div class="dash-metric-label">Granularidade</div>
+                    <div class="dash-metric-val">Mensal</div>
+                </div>
+                <div class="dash-metric">
+                    <div class="dash-metric-label">Status</div>
+                    <div class="dash-metric-val" style="color:var(--text-label)">Desenvolvimento</div>
+                </div>
+            </div>
+            <div class="dash-card-arrow" style="opacity:0.3">→</div>
+        </a>
+
+        <!-- INADIMPLÊNCIA -->
+        <a href="#" class="dash-card" style="--card-accent: #f07070;" onclick="return false;">
+            <span class="status-badge soon">Em breve</span>
+            <span class="dash-card-icon">⚠️</span>
+            <div class="dash-card-tag">Crédito & Risco</div>
+            <div class="dash-card-title">Dashboard de Inadimplência</div>
+            <div class="dash-card-desc">Monitore os índices de inadimplência por faixa de vencimento, carteira de clientes e evolução histórica do saldo em atraso.</div>
+            <div class="dash-card-metrics">
+                <div class="dash-metric">
+                    <div class="dash-metric-label">Visões</div>
+                    <div class="dash-metric-val">—</div>
+                </div>
+                <div class="dash-metric">
+                    <div class="dash-metric-label">Aging</div>
+                    <div class="dash-metric-val">Por faixa</div>
+                </div>
+                <div class="dash-metric">
+                    <div class="dash-metric-label">Status</div>
+                    <div class="dash-metric-val" style="color:var(--text-label)">Planejado</div>
+                </div>
+            </div>
+            <div class="dash-card-arrow" style="opacity:0.3">→</div>
+        </a>
+
+    </div>
+
+    <!-- ACESSO RÁPIDO -->
+    <div class="section-header">
+        <div class="section-title">Acesso Rápido</div>
+        <div class="section-line"></div>
+    </div>
+
+    <div class="quick-grid">
+        <a href="index.html" class="quick-btn">
+            <div class="quick-btn-icon">📈</div>
+            <div>
+                <div class="quick-btn-label">Resumo Geral</div>
+                <div class="quick-btn-sub">Faturamento bruto / líquido</div>
+            </div>
+        </a>
+        <a href="index.html" class="quick-btn">
+            <div class="quick-btn-icon">🗺️</div>
+            <div>
+                <div class="quick-btn-label">Por Região</div>
+                <div class="quick-btn-sub">Mapa e ranking de estados</div>
+            </div>
+        </a>
+        <a href="index.html" class="quick-btn">
+            <div class="quick-btn-icon">👤</div>
+            <div>
+                <div class="quick-btn-label">Por Vendedor</div>
+                <div class="quick-btn-sub">Ranking e ticket médio</div>
+            </div>
+        </a>
+        <a href="index.html" class="quick-btn">
+            <div class="quick-btn-icon">🏷️</div>
+            <div>
+                <div class="quick-btn-label">Faixas de Cliente</div>
+                <div class="quick-btn-sub">Concentração por tier</div>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <div class="footer-brand"><strong>CRIFFER</strong> — Everything Matters · BI Central</div>
+    <div class="footer-date" id="footer-date"></div>
+</div>
+
+<script>
+    const now = new Date();
+    document.getElementById('footer-date').textContent =
+        now.toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRIFFER — Central de Dashboards</title>
+    <style>
+        :root {
+            --bg-dash: #000;
+            --bg-panel: #0a0a0a;
+            --bg-input: #141414;
+            --border: #1a1a1a;
+            --border-strong: #262626;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --text-label: #707070;
+            --text-sub: #505050;
+            --accent: #ec6e2a;
+            --accent-glow: rgba(236, 110, 42, 0.4);
+            --neg: #f07070;
+            --gray-bar: #525252;
+            --salmon: #ffbb96;
+            
+            /* Adicionais para o Switch */
+            --bg-stats: #050505;
+            --bg-footer: #050505;
+            --hero-opacity: 0.06;
+            --card-hover-bg: #0f0f0f;
+            --shadow: rgba(0,0,0,0.8);
+        }
+
+        body.light-mode {
+            --bg-dash: #F8F9FA;
+            --bg-panel: #ffffff;
+            --bg-input: #ebebeb;
+            --border: #e0e0e0;
+            --border-strong: #d1d1d1;
+            --text-main: #1a1a1a;
+            --text-muted: #555555;
+            --text-label: #777777;
+            --text-sub: #999999;
+            --bg-stats: #f0f0f0;
+            --bg-footer: #f0f0f0;
+            --hero-opacity: 0.03;
+            --card-hover-bg: #fdfdfd;
+            --shadow: rgba(0,0,0,0.1);
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background: var(--bg-dash);
+            color: var(--text-main);
+            font-family: 'Tahoma', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            background: #000;
+            border-bottom: 2px solid var(--accent);
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .logo-img {
+            height: 45px;
+            width: auto;
+            filter: drop-shadow(0 0 8px var(--accent-glow));
+        }
+        .logo-text-container {
+            border-left: 1px solid var(--border-strong);
+            padding-left: 20px;
+        }
+        .header-title {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        .header-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .badge-user {
+            background: var(--bg-input);
+            border: 1px solid var(--border-strong);
+            color: var(--text-muted);
+            font-size: 11px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .badge-user::before {
+            content: '';
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: inline-block;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        /* ── HERO SECTION ── */
+        .hero {
+            padding: 80px 40px 60px;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at 80% 20%, rgba(236,110,42,0.05) 0%, transparent 40%);
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 450px;
+            height: 450px;
+            background: url("FF Logo Laranja.png") no-repeat center;
+            background-size: contain;
+            opacity: var(--hero-opacity);
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+            transition: opacity 0.3s;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-eyebrow {
+            font-size: 12px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: inline-block;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 5px;
+        }
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.1;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+        .hero-title span { 
+            color: var(--accent);
+            position: relative;
+        }
+        .hero-desc {
+            font-size: 15px;
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            display: flex;
+            background: var(--bg-stats);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+            transition: background 0.3s, border 0.3s;
+        }
+        .stat-item {
+            flex: 1;
+            min-width: 180px;
+            padding: 25px 40px;
+            border-right: 1px solid var(--border);
+            transition: background 0.3s;
+        }
+        .stat-item:hover {
+            background: var(--bg-panel);
+        }
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-label);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        .stat-value.orange { color: var(--accent); }
+        .stat-sub {
+            font-size: 11px;
+            color: var(--text-sub);
+            margin-top: 5px;
+        }
+
+        /* ── MAIN CONTENT ── */
+        .main {
+            padding: 60px 40px 100px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+        .section-title {
+            font-size: 14px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--border-strong), transparent);
+        }
+
+        /* ── DASHBOARD GRID ── */
+        .dash-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .dash-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 35px 30px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .dash-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 0;
+            background: var(--card-accent, var(--accent));
+            transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            opacity: 0.8;
+        }
+        .dash-card:hover {
+            border-color: var(--card-accent, var(--accent));
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px var(--shadow), 0 0 15px rgba(236,110,42,0.1);
+            background: var(--card-hover-bg);
+        }
+        .dash-card:hover::before { width: 4px; }
+
+        .dash-card-icon {
+            width: 180px;
+            height: 120px;
+            margin-bottom: 25px;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-input);
+        }
+        .dash-card-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .dash-card:hover .dash-card-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .dash-card-tag {
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--card-accent, var(--accent));
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .dash-card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        .dash-card-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+        
+        .dash-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .dash-status-text {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-label);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .dash-card-arrow {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: var(--bg-input);
+            border: 1px solid var(--border-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--text-label);
+            transition: all 0.3s;
+        }
+        .dash-card:hover .dash-card-arrow {
+            background: var(--card-accent, var(--accent));
+            border-color: var(--card-accent, var(--accent));
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        /* STATUS BADGE */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            position: absolute;
+            top: 25px;
+            right: 25px;
+        }
+        .status-badge.live {
+            background: rgba(236,110,42,0.1);
+            color: var(--accent);
+            border: 1px solid rgba(236,110,42,0.3);
+        }
+        .status-badge.live::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: pulse 2s infinite;
+        }
+        .status-badge.soon {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-label);
+            border: 1px solid var(--border);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(236,110,42, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(236,110,42, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(236,110,42, 0); }
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 30px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-footer);
+            transition: background 0.3s;
+        }
+        .footer-brand {
+            font-size: 13px;
+            color: var(--text-label);
+            letter-spacing: 1px;
+        }
+        .footer-brand strong { color: var(--accent); }
+        .footer-date {
+            font-size: 12px;
+            color: var(--text-sub);
+            font-weight: 600;
+        }
+
+        /* RESPONSIVITY */
+        @media (max-width: 900px) {
+            .header { padding: 15px 25px; }
+            .hero { padding: 60px 25px 40px; }
+            .hero-title { font-size: 36px; }
+            .main { padding: 40px 25px; }
+            .dash-grid { grid-template-columns: 1fr; }
+            .stat-item { padding: 20px 25px; }
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dash-card {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        .dash-card:nth-child(1) { animation-delay: 0.1s; }
+        .dash-card:nth-child(2) { animation-delay: 0.2s; }
+        .dash-card:nth-child(3) { animation-delay: 0.3s; }
+        .dash-card:nth-child(4) { animation-delay: 0.4s; }
+
+        /* THEME TOGGLE */
+        .theme-toggle {
+            background: var(--bg-input);
+            border: 1px solid var(--border-strong);
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+        .theme-toggle .icon-sun { display: none; }
+        .light-mode .theme-toggle .icon-sun { display: block; }
+        .light-mode .theme-toggle .icon-moon { display: none; }
+
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="header-left">
+        <img src="Criffer-logo.webp" alt="Criffer" class="logo-img">
+        <div class="logo-text-container">
+            <div class="header-title">Portal de Dashboards</div>
+            <div class="header-sub">Business Intelligence Central</div>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="theme-toggle" id="theme-toggle" title="Alternar Modo Claro/Escuro">
+            <span class="icon-moon">🌙</span>
+            <span class="icon-sun">☀️</span>
+        </div>
+        <div class="badge-user">Acesso Administrativo</div>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">A tomada de decisão <br>começa <span>aqui.</span></h1>
+        <p class="hero-desc">Explore os indicadores estratégicos da Criffer através de dashboards dinâmicos atualizados em tempo real.</p>
+    </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+    <div class="stat-item">
+        <div class="stat-label">Painéis Disponíveis</div>
+        <div class="stat-value orange">4</div>
+        <div class="stat-sub">Centralizados no portal</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-label">Status da Conexão</div>
+        <div class="stat-value" style="font-size:16px"><span style="color:#00ff88">●</span> Conectado</div>
+        <div class="stat-sub">Sincronização SAP ERP</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-label">Última Atualização</div>
+        <div class="stat-value" style="font-size:16px" id="update-time">-- : --</div>
+        <div class="stat-sub">Dados processados hoje</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-label">Suporte Interno</div>
+        <div class="stat-value" style="font-size:16px">Financeiro</div>
+        <div class="stat-sub">Ramal 6694</div>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+    <div class="section-header">
+        <div class="section-title">Nossos Dashboards</div>
+        <div class="section-line"></div>
+    </div>
+
+    <div class="dash-grid">
+
+        <!-- FATURAMENTO -->
+        <a href="../index.html" class="dash-card" style="--card-accent: #ec6e2a;">
+            <span class="status-badge live">Ao vivo</span>
+            <div class="dash-card-icon">
+                <img src="Faturamento_dark.jpg" alt="Faturamento">
+            </div>
+            <div class="dash-card-tag">Financeiro · Vendas</div>
+            <h2 class="dash-card-title">Faturamento</h2>
+            <p class="dash-card-desc">Análise completa de receita bruta, líquida, devoluções e performance por região, vendedor e categoria de produto.</p>
+            <div class="dash-card-footer">
+                <span class="dash-status-text">Acessar Painel</span>
+                <div class="dash-card-arrow">→</div>
+            </div>
+        </a>
+
+        <!-- RESULTADO MENSAL DE COBRANÇA -->
+        <a href="#" class="dash-card" style="--card-accent: #505050;" onclick="return false;">
+            <span class="status-badge soon">Em breve</span>
+            <div class="dash-card-icon">
+                <img src="Resultado_Mensal_Cobranca_dark.jpg" alt="Cobrança">
+            </div>
+            <div class="dash-card-tag">Financeiro · Contas</div>
+            <h2 class="dash-card-title">Resultado Mensal de Cobrança</h2>
+            <p class="dash-card-desc">Visão consolidada do fluxo de cobranças, taxas de recebimento e performance de liquidação de títulos.</p>
+            <div class="dash-card-footer">
+                <span class="dash-status-text" style="color:var(--text-sub)">Fase de homologação</span>
+                <div class="dash-card-arrow" style="opacity:0.3">→</div>
+            </div>
+        </a>
+
+        <!-- INADIMPLÊNCIA -->
+        <a href="#" class="dash-card" style="--card-accent: #f07070;" onclick="return false;">
+            <span class="status-badge soon">Em breve</span>
+            <div class="dash-card-icon">
+                <img src="Inadimplencia_dark.jpg" alt="Inadimplência">
+            </div>
+            <div class="dash-card-tag">Crédito & Risco</div>
+            <h2 class="dash-card-title">Inadimplência</h2>
+            <p class="dash-card-desc">Monitoramento de saldo em atraso por faixa de envelhecimento (Aging), análise de risco por perfil de cliente e filial.</p>
+            <div class="dash-card-footer">
+                <span class="dash-status-text" style="color:var(--text-sub)">Desenvolvimento</span>
+                <div class="dash-card-arrow" style="opacity:0.3">→</div>
+            </div>
+        </a>
+
+        <!-- FLUXO DE CAIXA -->
+        <a href="#" class="dash-card" style="--card-accent: #00ff88;" onclick="return false;">
+            <span class="status-badge soon">Em breve</span>
+            <div class="dash-card-icon">
+                <img src="Fluxo_de_Caixa_dark.jpg" alt="Fluxo de Caixa">
+            </div>
+            <div class="dash-card-tag">Tesouraria</div>
+            <h2 class="dash-card-title">Fluxo de Caixa</h2>
+            <p class="dash-card-desc">Projeções de entradas e saídas, gestão de liquidez imediata e acompanhamento de saldos bancários consolidados.</p>
+            <div class="dash-card-footer">
+                <span class="dash-status-text" style="color:var(--text-sub)">Planejado</span>
+                <div class="dash-card-arrow" style="opacity:0.3">→</div>
+            </div>
+        </a>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <div class="footer-brand"><strong>CRIFFER</strong> — Everything Matters · BI Central</div>
+    <div class="footer-date" id="footer-date"></div>
+</div>
+
+<script>
+    // Atualiza data do rodapé
+    const now = new Date();
+    document.getElementById('footer-date').textContent =
+        now.toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+    // Atualiza hora de atualização (fictício para demo)
+    document.getElementById('update-time').textContent = now.getHours().toString().padStart(2, '0') + ':00';
+
+    // Lógica do Tema
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Carrega preferência
+    if (localStorage.getItem('theme') === 'light') {
+        body.classList.add('light-mode');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('light-mode');
+        const isLight = body.classList.contains('light-mode');
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    });
+</script>
+
+</body>
+</html>
