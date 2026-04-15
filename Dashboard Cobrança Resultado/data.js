@@ -1,9 +1,9 @@
 const dashData = {
     "periodos":  [
-                     "Janeiro-2026",
-                     "Fevereiro-2026",
+                     "Abril-2026",
                      "Mar\u00e7o-2026",
-                     "Abril-2026"
+                     "Fevereiro-2026",
+                     "Janeiro-2026"
                  ],
     "dados":  {
                   "Abril-2026":  {
@@ -892,6 +892,6 @@ const dashData = {
                                                        }
                                    }
               },
-    "atualizadoEm":  "15/04/2026 15:57",
+    "atualizadoEm":  "15/04/2026 16:15",
     "totalAnoRecuperado":  687552.19
 };

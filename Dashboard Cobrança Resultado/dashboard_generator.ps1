@@ -197,7 +197,7 @@ $totalAnoRecuperado = ($allData | Measure-Object VRecuperado -Sum).Sum
 $finalObj = @{
     atualizadoEm = (Get-Date).ToString("dd/MM/yyyy HH:mm")
     totalAnoRecuperado = $totalAnoRecuperado
-    periodos = @($periodosUnicos.Periodo)
+    periodos = @($periodosUnicos | Sort-Object PeriodoSort -Descending | Select-Object -ExpandProperty Periodo)
     dados = $metricasPorPeriodo
 }
 
