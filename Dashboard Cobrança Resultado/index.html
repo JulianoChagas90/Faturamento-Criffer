@@ -271,7 +271,12 @@
 
             const firstPeriod = dashData.periodos[0];
             selector.value = firstPeriod;
-            renderPeriod(firstPeriod); 
+            renderPeriod(firstPeriod);
+
+            // Adiciona a detecção de mudança para atualizar os gráficos
+            selector.addEventListener('change', (e) => {
+                renderPeriod(e.target.value);
+            });
         });
     </script>
 </body>
