@@ -134,7 +134,7 @@
             document.getElementById('kpi-qtd').textContent = data.kpis.totalRegistros;
             document.getElementById('kpi-juros').textContent = fmt.format(data.kpis.totalJuros);
             document.getElementById('kpi-atraso').textContent = `${data.kpis.atrasoMedio} dias`;
-            document.getElementById('kpi-total-ano').textContent = fmt.format(dashData.totalAnoRecuperado);
+            document.getElementById('kpi-total-ano').textContent = fmt.format(data.kpis.ytdRecuperado);
 
             // Reset dynamic lists
             const cobradoresList = document.getElementById('cobradores-list');

@@ -1,10 +1,9 @@
 const dashData = {
     "periodos":  [
-                     "Abril-2026",
-                     "Mar\u00e7o-2026",
-                     "Fevereiro-2026",
                      "Janeiro-2026",
-                     "Dezembro-2025"
+                     "Fevereiro-2026",
+                     "Mar\u00e7o-2026",
+                     "Abril-2026"
                  ],
     "dados":  {
                   "Abril-2026":  {
@@ -202,11 +201,12 @@ const dashData = {
                                                    "ate_30":  17
                                                },
                                      "kpis":  {
-                                                  "totalRegistros":  78,
                                                   "totalJuros":  4377.9000000000005,
+                                                  "ytdRecuperado":  687552.19000000006,
                                                   "atrasoMedio":  216,
+                                                  "totalRecuperado":  60012.040000000008,
                                                   "totalOriginal":  55634.140000000007,
-                                                  "totalRecuperado":  60012.040000000008
+                                                  "totalRegistros":  78
                                               },
                                      "agingValues":  {
                                                          "91_120":  4895.13,
@@ -441,11 +441,12 @@ const dashData = {
                                                        "ate_30":  63
                                                    },
                                          "kpis":  {
-                                                      "totalRegistros":  194,
                                                       "totalJuros":  5587.8600000000006,
+                                                      "ytdRecuperado":  388834.07999999996,
                                                       "atrasoMedio":  190,
+                                                      "totalRecuperado":  134286.62000000002,
                                                       "totalOriginal":  128626.28000000003,
-                                                      "totalRecuperado":  134286.62000000002
+                                                      "totalRegistros":  194
                                                   },
                                          "agingValues":  {
                                                              "91_120":  5649.7300000000005,
@@ -455,54 +456,6 @@ const dashData = {
                                                              "ate_30":  50638.729999999996
                                                          }
                                      },
-                  "Dezembro-2025":  {
-                                        "porMotivo":  {
-                                                          "Nome":  "RENEGOCIAÇÃO",
-                                                          "Qtd":  1,
-                                                          "Valor":  2000
-                                                      },
-                                        "curvaABC":  {
-                                                         "Cliente":  "FLUXOMED, MESTRA \u0026 CONECTA MEDICINA E SEGURANCA DO TRABALHO LTDA",
-                                                         "Valor":  2000,
-                                                         "PctAcum":  100,
-                                                         "Categoria":  "C"
-                                                     },
-                                        "porCobrador":  {
-                                                            "Nome":  "LETÍCIA",
-                                                            "Qtd":  1,
-                                                            "Valor":  2000,
-                                                            "Juros":  317.28,
-                                                            "AtrasoMedio":  0
-                                                        },
-                                        "porFilial":  {
-                                                          "Nome":  "CFF DESENVOLVIMENTO",
-                                                          "Qtd":  1,
-                                                          "VOriginal":  1157.87,
-                                                          "Juros":  317.28,
-                                                          "VRecuperado":  2000
-                                                      },
-                                        "aging":  {
-                                                      "91_120":  0,
-                                                      "121_180":  0,
-                                                      "31_90":  0,
-                                                      "mais_180":  0,
-                                                      "ate_30":  null
-                                                  },
-                                        "kpis":  {
-                                                     "totalRegistros":  null,
-                                                     "totalJuros":  317.28,
-                                                     "atrasoMedio":  0,
-                                                     "totalOriginal":  1157.87,
-                                                     "totalRecuperado":  2000
-                                                 },
-                                        "agingValues":  {
-                                                            "91_120":  null,
-                                                            "121_180":  null,
-                                                            "31_90":  null,
-                                                            "mais_180":  null,
-                                                            "ate_30":  2000
-                                                        }
-                                    },
                   "Mar\u00e7o-2026":  {
                                       "porMotivo":  [
                                                         {
@@ -688,11 +641,12 @@ const dashData = {
                                                     "ate_30":  63
                                                 },
                                       "kpis":  {
-                                                   "totalRegistros":  290,
                                                    "totalJuros":  11611.690000000008,
+                                                   "ytdRecuperado":  627540.15,
                                                    "atrasoMedio":  225,
+                                                   "totalRecuperado":  238706.07000000007,
                                                    "totalOriginal":  227094.38,
-                                                   "totalRecuperado":  238706.07000000007
+                                                   "totalRegistros":  290
                                                },
                                       "agingValues":  {
                                                           "91_120":  19859.320000000003,
@@ -922,11 +876,12 @@ const dashData = {
                                                      "ate_30":  74
                                                  },
                                        "kpis":  {
-                                                    "totalRegistros":  224,
                                                     "totalJuros":  5662.0899999999992,
+                                                    "ytdRecuperado":  254547.45999999996,
                                                     "atrasoMedio":  153,
+                                                    "totalRecuperado":  254547.45999999996,
                                                     "totalOriginal":  247941.75000000003,
-                                                    "totalRecuperado":  254547.45999999996
+                                                    "totalRegistros":  224
                                                 },
                                        "agingValues":  {
                                                            "91_120":  2461.56,
@@ -937,6 +892,6 @@ const dashData = {
                                                        }
                                    }
               },
-    "atualizadoEm":  "15/04/2026 15:03",
-    "totalAnoRecuperado":  689552.19
+    "atualizadoEm":  "15/04/2026 15:57",
+    "totalAnoRecuperado":  687552.19
 };

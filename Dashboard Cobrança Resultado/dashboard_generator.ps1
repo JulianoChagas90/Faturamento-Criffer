@@ -92,17 +92,24 @@ catch {
 Write-Host "Processando métricas por período..." -ForegroundColor Yellow
 
 $metricasPorPeriodo = @{}
-$periodosUnicos = $allData | Select-Object Periodo, PeriodoSort -Unique | Sort-Object PeriodoSort -Descending
+$periodosUnicos = $allData | Select-Object Periodo, PeriodoSort -Unique | Sort-Object PeriodoSort
+
+$ytdRecuperado = @{} # Dicionário para acumulado por ano
 
 foreach ($p in $periodosUnicos) {
     $periodoNome = $p.Periodo
     $data = $allData | Where-Object { $_.Periodo -eq $periodoNome }
+    $anoAtual = $p.PeriodoSort.ToString().Substring(0, 4)
 
     $totalRecuperado = ($data | Measure-Object VRecuperado -Sum).Sum
     $totalJuros = ($data | Measure-Object Juros -Sum).Sum
     $totalOriginal = ($data | Measure-Object VOriginal -Sum).Sum
     $totalRegistros = $data.Count
     $atrasoMedio = ($data | Measure-Object DiasAtraso -Average).Average
+    
+    # Acumular YTD
+    if (!$ytdRecuperado.ContainsKey($anoAtual)) { $ytdRecuperado[$anoAtual] = 0 }
+    $ytdRecuperado[$anoAtual] += $totalRecuperado
 
     $aging = @{
         "ate_30"   = ($data | Where-Object { $_.DiasAtraso -le 30 }).Count
@@ -174,6 +181,7 @@ foreach ($p in $periodosUnicos) {
             totalOriginal = $totalOriginal
             totalRegistros = $totalRegistros
             atrasoMedio = [math]::Round($avgAtrasoRaw, 0)
+            ytdRecuperado = $ytdRecuperado[$anoAtual]
         }
         aging = $aging
         agingValues = $agingValues
