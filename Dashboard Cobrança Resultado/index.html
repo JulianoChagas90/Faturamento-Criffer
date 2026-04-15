@@ -13,7 +13,7 @@
         <div class="header">
             <div>
                 <div class="logo"><img src="../Criffer-logo.webp" alt="CRIFFER"></div>
-                <div class="header-sub" id="report-date">Relatório de Inadimplência — Fonte: SAP</div>
+                <div class="header-sub" id="report-date">Resultado Mensal de Cobrança — Fonte: SAP</div>
             </div>
             <div class="header-right">
                 <button class="theme-toggle" onclick="toggleTheme()">Alternar Tema</button>
@@ -125,7 +125,7 @@
             const fmtPct = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
             // Update Header & Footer
-            document.getElementById('report-date').textContent = `Relatório de Inadimplência — Atualizado em: ${dashData.atualizadoEm}`;
+            document.getElementById('report-date').textContent = `Resultado Mensal de Cobrança — Atualizado em: ${dashData.atualizadoEm}`;
             document.getElementById('footer-period').textContent = periodName.toUpperCase();
             document.getElementById('footer-update').textContent = `Atualizado em ${dashData.atualizadoEm.split(' ')[0]}`;
 

@@ -97,6 +97,9 @@ body {
 }
 .theme-toggle:hover { border-color: var(--accent); color: #fff; }
 
+.header-sub { font-size: 12px; color: #888; margin-top: 2px; }
+[data-theme="light"] .header-sub { color: #fff !important; }
+
 .report-date { font-size: 11px; color: #888; margin-top: 4px; }
 
 /* ── KPIs ── */
