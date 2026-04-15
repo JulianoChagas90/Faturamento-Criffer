@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Faturamento — Criffer</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Tahoma&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange:      #ec6e2a;
+    --orange-light:#ffbb96;
+    --orange-dark: #b5451a;
+    --gray-dark:   #525252;
+    --gray-mid:    #b5b5b5;
+    --gray-light:  #f0f0f0;
+    --black:       #000000;
+    --white:       #ffffff;
+    --bg:          #f7f6f4;
+    --card-bg:     #ffffff;
+    --text:        #1a1a1a;
+    --text-muted:  #525252;
+  }
+
+  body {
+    font-family: Tahoma, Geneva, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--black);
+    padding: 0 40px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--orange);
+    text-transform: uppercase;
+  }
+
+  .logo span { color: var(--white); font-size: 13px; font-weight: 400; margin-left: 12px; letter-spacing: 0.02em; }
+
+  .header-right {
+    font-size: 12px;
+    color: var(--gray-mid);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px 40px;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    grid-template-rows: auto auto 1fr;
+    gap: 24px;
+  }
+
+  /* ── KPI STRIP ── */
+  .kpi-strip {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .kpi-card {
+    background: var(--card-bg);
+    border: 1px solid #e0ddd8;
+    border-radius: 10px;
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--orange);
+  }
+
+  .kpi-card.dark {
+    background: var(--gray-dark);
+    border-color: var(--gray-dark);
+  }
+
+  .kpi-card.dark::before { background: var(--orange); }
+
+  .kpi-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .kpi-card.dark .kpi-label { color: var(--gray-mid); }
+
+  .kpi-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--orange);
+    line-height: 1;
+  }
+
+  .kpi-card.dark .kpi-value { color: var(--white); }
+
+  .kpi-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .kpi-card.dark .kpi-sub { color: var(--gray-mid); }
+
+  /* ── MAP PANEL ── */
+  .map-panel {
+    background: var(--card-bg);
+    border: 1px solid #e0ddd8;
+    border-radius: 10px;
+    padding: 24px;
+    position: relative;
+  }
+
+  .panel-title {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e0ddd8;
+  }
+
+  #tooltip {
+    position: fixed;
+    background: var(--black);
+    color: var(--white);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    pointer-events: none;
+    display: none;
+    z-index: 1000;
+    line-height: 1.6;
+    border-left: 3px solid var(--orange);
+  }
+
+  #brasilMap {
+    display: block;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  #brasilMap path {
+    transition: opacity 0.12s, filter 0.12s;
+  }
+
+  #brasilMap path:hover {
+    filter: brightness(1.15);
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .legend-bar {
+    display: flex;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 140px;
+    flex-shrink: 0;
+  }
+
+  .legend-bar span { flex: 1; }
+
+  /* ── SIDEBAR ── */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+  .state-card {
+    background: var(--card-bg);
+    border: 1px solid #e0ddd8;
+    border-radius: 10px;
+    padding: 24px;
+  }
+
+  .state-card-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    color: var(--gray-mid);
+    font-size: 13px;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .state-card-placeholder svg { opacity: 0.3; }
+
+  #stateDetail { display: none; }
+
+  .state-uf-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    background: var(--orange);
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 8px;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .state-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .state-region {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .state-metric { margin-bottom: 14px; }
+
+  .state-metric-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .state-metric-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--orange);
+  }
+
+  .state-bar-wrap {
+    margin-top: 16px;
+  }
+
+  .state-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .state-bar-track {
+    height: 6px;
+    background: var(--gray-light);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .state-bar-fill {
+    height: 100%;
+    background: var(--orange);
+    border-radius: 3px;
+    transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ── RANKING ── */
+  .ranking-card {
+    background: var(--card-bg);
+    border: 1px solid #e0ddd8;
+    border-radius: 10px;
+    padding: 24px;
+    flex: 1;
+  }
+
+  .ranking-list { list-style: none; }
+
+  .ranking-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0efed;
+    cursor: pointer;
+    transition: background 0.1s;
+    border-radius: 4px;
+    padding: 8px 6px;
+  }
+
+  .ranking-item:last-child { border-bottom: none; }
+  .ranking-item:hover { background: #faf9f7; }
+
+  .rank-pos {
+    width: 20px;
+    font-size: 11px;
+    color: var(--gray-mid);
+    font-weight: 700;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .rank-uf {
+    width: 30px;
+    height: 24px;
+    background: var(--gray-light);
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .rank-bar-wrap { flex: 1; }
+
+  .rank-name {
+    font-size: 12px;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .rank-bar-track {
+    height: 4px;
+    background: var(--gray-light);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .rank-bar-fill {
+    height: 100%;
+    background: var(--orange);
+    border-radius: 2px;
+  }
+
+  .rank-value {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    text-align: right;
+    min-width: 60px;
+  }
+
+  .rank-item-top .rank-uf { background: var(--orange); color: var(--white); }
+  .rank-item-top .rank-value { color: var(--orange); }
+
+  @media (max-width: 1100px) {
+    .container { grid-template-columns: 1fr; }
+    .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .kpi-strip { grid-template-columns: 1fr 1fr; }
+    header { padding: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Criffer <span>Dashboard de Faturamento</span></div>
+  <div class="header-right">Everything Matters</div>
+</header>
+
+<div id="tooltip"></div>
+
+<div class="container">
+
+  <!-- KPI STRIP -->
+  <div class="kpi-strip">
+    <div class="kpi-card dark">
+      <div class="kpi-label">Total Brasil</div>
+      <div class="kpi-value" id="kpiTotal">—</div>
+      <div class="kpi-sub">27 estados + DF</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Maior Estado</div>
+      <div class="kpi-value" id="kpiTop">—</div>
+      <div class="kpi-sub" id="kpiTopName">—</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Média por Estado</div>
+      <div class="kpi-value" id="kpiAvg">—</div>
+      <div class="kpi-sub">mediana dos 27</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Região Líder</div>
+      <div class="kpi-value" id="kpiRegiao">SE</div>
+      <div class="kpi-sub">Sudeste</div>
+    </div>
+  </div>
+
+  <!-- MAP -->
+  <div class="map-panel">
+    <div class="panel-title">Faturamento por Estado — clique para detalhar</div>
+    <svg id="brasilMap" viewBox="0 0 760 780"></svg>
+    <div class="legend">
+      <span>Baixo</span>
+      <div class="legend-bar">
+        <span style="background:#ffbb96"></span>
+        <span style="background:#f08c52"></span>
+        <span style="background:#ec6e2a"></span>
+        <span style="background:#7a7a7a"></span>
+        <span style="background:#525252"></span>
+      </div>
+      <span>Alto</span>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <div class="state-card">
+      <div class="panel-title">Detalhes do Estado</div>
+
+      <div id="statePlaceholder" class="state-card-placeholder">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 13l4.553 2.276A1 1 0 0021 21.382V10.618a1 1 0 00-.553-.894L15 7m0 13V7m0 0L9 4"/>
+        </svg>
+        Selecione um estado no mapa
+      </div>
+
+      <div id="stateDetail">
+        <div class="state-uf-badge" id="detailUF">SP</div>
+        <div class="state-name" id="detailName">São Paulo</div>
+        <div class="state-region" id="detailRegion">Sudeste</div>
+
+        <div class="state-metric">
+          <div class="state-metric-label">Faturamento</div>
+          <div class="state-metric-value" id="detailValue">R$ 98M</div>
+        </div>
+
+        <div class="state-bar-wrap">
+          <div class="state-bar-label">
+            <span>% do total nacional</span>
+            <span id="detailPerc">0%</span>
+          </div>
+          <div class="state-bar-track">
+            <div class="state-bar-fill" id="detailBar" style="width:0%"></div>
+          </div>
+        </div>
+
+        <div class="state-metric" style="margin-top:16px;">
+          <div class="state-metric-label">Ranking Nacional</div>
+          <div class="state-metric-value" id="detailRank" style="color:var(--gray-dark)">#1</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ranking-card">
+      <div class="panel-title">Top 10 Estados</div>
+      <ul class="ranking-list" id="rankingList"></ul>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ── DATA ── */
+const faturamento = {
+  "AC": 1200000,  "AL": 3800000,  "AP":  900000,  "AM": 5600000,
+  "BA":18500000,  "CE":14200000,  "DF":22000000,  "ES": 9800000,
+  "GO":12400000,  "MA": 6700000,  "MT": 8900000,  "MS": 7300000,
+  "MG":38000000,  "PA": 9200000,  "PB": 5100000,  "PR":24600000,
+  "PE":16800000,  "PI": 3400000,  "RJ":45000000,  "RN": 5900000,
+  "RS":27000000,  "RO": 3100000,  "RR":  700000,  "SC":19200000,
+  "SP":98000000,  "SE": 4200000,  "TO": 2800000
+};
+
+const nomes = {
+  "AC":"Acre","AL":"Alagoas","AP":"Amapá","AM":"Amazonas","BA":"Bahia",
+  "CE":"Ceará","DF":"Distrito Federal","ES":"Espírito Santo","GO":"Goiás",
+  "MA":"Maranhão","MT":"Mato Grosso","MS":"Mato Grosso do Sul","MG":"Minas Gerais",
+  "PA":"Pará","PB":"Paraíba","PR":"Paraná","PE":"Pernambuco","PI":"Piauí",
+  "RJ":"Rio de Janeiro","RN":"Rio Grande do Norte","RS":"Rio Grande do Sul",
+  "RO":"Rondônia","RR":"Roraima","SC":"Santa Catarina","SP":"São Paulo",
+  "SE":"Sergipe","TO":"Tocantins"
+};
+
+const regioes = {
+  "AC":"Norte","AL":"Nordeste","AP":"Norte","AM":"Norte","BA":"Nordeste",
+  "CE":"Nordeste","DF":"Centro-Oeste","ES":"Sudeste","GO":"Centro-Oeste",
+  "MA":"Nordeste","MT":"Centro-Oeste","MS":"Centro-Oeste","MG":"Sudeste",
+  "PA":"Norte","PB":"Nordeste","PR":"Sul","PE":"Nordeste","PI":"Nordeste",
+  "RJ":"Sudeste","RN":"Nordeste","RS":"Sul","RO":"Norte","RR":"Norte",
+  "SC":"Sul","SP":"Sudeste","SE":"Nordeste","TO":"Norte"
+};
+
+/* ── UTILS ── */
+const total = Object.values(faturamento).reduce((a,b)=>a+b,0);
+const maxV   = Math.max(...Object.values(faturamento));
+const minV   = Math.min(...Object.values(faturamento));
+
+function fmt(v) {
+  if(v >= 1e6) return "R$ " + (v/1e6).toFixed(1) + "M";
+  return "R$ " + (v/1e3).toFixed(0) + "K";
+}
+
+function colorScale(v) {
+  const t = (v - minV) / (maxV - minV);
+  if(t < 0.20) return "#ffbb96";
+  if(t < 0.40) return "#f08c52";
+  if(t < 0.60) return "#ec6e2a";
+  if(t < 0.80) return "#7a7a7a";
+  return "#525252";
+}
+
+/* ── KPIS ── */
+document.getElementById("kpiTotal").textContent = "R$ " + (total/1e6).toFixed(0) + "M";
+document.getElementById("kpiTop").textContent   = fmt(maxV);
+const topUF = Object.entries(faturamento).sort((a,b)=>b[1]-a[1])[0][0];
+document.getElementById("kpiTopName").textContent = nomes[topUF];
+const avg = total / Object.keys(faturamento).length;
+document.getElementById("kpiAvg").textContent = fmt(avg);
+
+/* ── RANKING LIST ── */
+const sorted = Object.entries(faturamento).sort((a,b)=>b[1]-a[1]);
+const rankingList = document.getElementById("rankingList");
+sorted.slice(0,10).forEach(([uf, val], i) => {
+  const li = document.createElement("li");
+  li.className = "ranking-item" + (i<3?" rank-item-top":"");
+  li.innerHTML = `
+    <span class="rank-pos">${i+1}</span>
+    <span class="rank-uf">${uf}</span>
+    <div class="rank-bar-wrap">
+      <div class="rank-name">${nomes[uf]}</div>
+      <div class="rank-bar-track">
+        <div class="rank-bar-fill" style="width:${(val/maxV*100).toFixed(1)}%"></div>
+      </div>
+    </div>
+    <span class="rank-value">${fmt(val)}</span>
+  `;
+  li.addEventListener("click", () => selectState(uf));
+  rankingList.appendChild(li);
+});
+
+/* ── STATE RANK MAP ── */
+const rankMap = {};
+sorted.forEach(([uf], i) => rankMap[uf] = i+1);
+
+/* ── SELECT STATE ── */
+let selectedUF = null;
+
+function selectState(uf) {
+  selectedUF = uf;
+  const val = faturamento[uf] || 0;
+  const perc = ((val/total)*100).toFixed(1);
+
+  document.getElementById("statePlaceholder").style.display = "none";
+  document.getElementById("stateDetail").style.display = "block";
+  document.getElementById("detailUF").textContent    = uf;
+  document.getElementById("detailName").textContent  = nomes[uf];
+  document.getElementById("detailRegion").textContent= regioes[uf] || "—";
+  document.getElementById("detailValue").textContent = fmt(val);
+  document.getElementById("detailPerc").textContent  = perc + "%";
+  document.getElementById("detailBar").style.width   = perc + "%";
+  document.getElementById("detailRank").textContent  = "#" + rankMap[uf];
+
+  /* update map selection */
+  d3.selectAll("#brasilMap path")
+    .attr("opacity", d => {
+      const u = getUF(d);
+      return (!u || u === uf) ? 1 : 0.45;
+    })
+    .attr("stroke-width", d => getUF(d) === uf ? 2 : 0.8)
+    .attr("stroke", d => getUF(d) === uf ? "#b5451a" : "#ffffff");
+}
+
+function getUF(d) {
+  if(!d || !d.properties) return null;
+  return d.properties.sigla || d.properties.UF || d.properties.uf || d.properties.Estado || null;
+}
+
+/* ── MAP ── */
+const tooltip = document.getElementById("tooltip");
+
+fetch("https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/brazil-states.geojson")
+  .then(r => r.json())
+  .then(geo => {
+    const svg  = d3.select("#brasilMap");
+    const proj = d3.geoMercator().fitSize([760, 780], geo);
+    const path = d3.geoPath(proj);
+
+    svg.selectAll("path")
+      .data(geo.features)
+      .join("path")
+        .attr("d", path)
+        .attr("fill", d => {
+          const uf = getUF(d);
+          return colorScale(faturamento[uf] || 0);
+        })
+        .attr("stroke", "#ffffff")
+        .attr("stroke-width", 0.8)
+        .on("mousemove", function(event, d) {
+          const uf  = getUF(d);
+          const val = faturamento[uf] || 0;
+          const perc= ((val/total)*100).toFixed(1);
+          tooltip.style.display = "block";
+          tooltip.style.left    = (event.clientX + 16) + "px";
+          tooltip.style.top     = (event.clientY - 10) + "px";
+          tooltip.innerHTML     = `<strong>${nomes[uf] || uf}</strong> &nbsp;(${uf})<br>${fmt(val)} &nbsp;·&nbsp; ${perc}% do total`;
+          if(selectedUF === null) {
+            d3.select(this).attr("stroke-width", 2).attr("stroke","#b5451a");
+          }
+        })
+        .on("mouseleave", function(event, d) {
+          const uf = getUF(d);
+          tooltip.style.display = "none";
+          if(selectedUF !== uf) {
+            d3.select(this).attr("stroke-width", 0.8).attr("stroke","#ffffff");
+          }
+        })
+        .on("click", function(event, d) {
+          const uf = getUF(d);
+          if(uf) selectState(uf);
+        });
+
+    /* labels */
+    svg.selectAll("text")
+      .data(geo.features)
+      .join("text")
+        .attr("x", d => path.centroid(d)[0])
+        .attr("y", d => path.centroid(d)[1] + 4)
+        .attr("text-anchor", "middle")
+        .attr("font-size", d => {
+          const uf = getUF(d);
+          const small = ["RN","PB","PE","AL","SE","ES","RJ","DF","RR","AP"];
+          return small.includes(uf) ? "7px" : "9px";
+        })
+        .attr("font-family", "Tahoma, sans-serif")
+        .attr("font-weight", "bold")
+        .attr("fill", "#ffffff")
+        .attr("pointer-events", "none")
+        .text(d => getUF(d) || "");
+  })
+  .catch(() => {
+    document.querySelector(".map-panel").innerHTML +=
+      '<p style="color:#ec6e2a;font-size:13px;margin-top:16px;">⚠ GeoJSON não carregou. Verifique sua conexão com a internet.</p>';
+  });
+</script>
+</body>
+</html>

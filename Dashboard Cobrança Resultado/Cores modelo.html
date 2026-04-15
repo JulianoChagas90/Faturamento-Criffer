@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRIFFER - Relatório de Inadimplência</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+</head>
+<body>
+    <div class="dash">
+        <div class="header">
+            <div class="logo-area">
+                <div class="logo-text">CRIFFER</div>
+                <div class="logo-sub">EVERYTHING MATTERS</div>
+            </div>
+            <div class="header-right">
+                <div class="report-title-container">
+                    <span class="report-title">RELATÓRIO DE INADIMPLÊNCIA —</span>
+                    <select id="periodo-selector" class="periodo-select">
+                        <!-- Ops dinâmicas -->
+                    </select>
+                </div>
+                <div id="report-date" class="report-date">Análise consolidada de cobranças recuperadas &nbsp;·&nbsp; Atualizado em: --/--/----</div>
+            </div>
+        </div>
+
+        <div class="kpi-row">
+            <div class="kpi">
+                <div class="kpi-label">Total Recuperado</div>
+                <div id="kpi-recuperado" class="kpi-value orange">R$ 0</div>
+                <div class="kpi-sub">Valor total recebido no mês</div>
+            </div>
+            <div class="kpi gray">
+                <div class="kpi-label">Total de Cobranças</div>
+                <div id="kpi-qtd" class="kpi-value">0</div>
+                <div class="kpi-sub">Registros no período</div>
+            </div>
+            <div class="kpi light-orange">
+                <div class="kpi-label">Juros Totais</div>
+                <div id="kpi-juros" class="kpi-value">R$ 0</div>
+                <div class="kpi-sub">Acumulado de juros recebidos</div>
+            </div>
+            <div class="kpi dark">
+                <div class="kpi-label">Atraso Médio</div>
+                <div id="kpi-atraso" class="kpi-value">0 dias</div>
+                <div class="kpi-sub">Vencimento → pagamento</div>
+            </div>
+            <div class="kpi">
+                <div class="kpi-label">Total do Ano</div>
+                <div id="kpi-total-ano" class="kpi-value orange">R$ 0</div>
+                <div class="kpi-sub">Valor bruto acumulado</div>
+            </div>
+        </div>
+
+        <div class="grid2">
+            <div class="card">
+                <div class="card-title">Recuperação por Cobrador</div>
+                <div id="cobradores-list">
+                    <!-- Dinâmico -->
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Recuperação por Filial</div>
+                <table class="table-dash" id="table-filial">
+                    <thead>
+                        <tr>
+                            <th>Filial</th>
+                            <th style="text-align:right">Cobranças</th>
+                            <th style="text-align:right">Val. Original</th>
+                            <th style="text-align:right">Juros</th>
+                            <th style="text-align:right">Recuperado</th>
+                            <th style="text-align:right">% Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dinâmico -->
+                    </tbody>
+                </table>
+                <div style="margin-top:14px;">
+                    <div style="font-size:11px;color:#b5b5b5;letter-spacing:1px;margin-bottom:6px;font-weight:700;text-transform:uppercase">Distribuição por Filial</div>
+                    <div class="filial-split" id="filial-bars">
+                        <!-- Dinâmico -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid2">
+            <div class="card">
+                <div class="card-title">Motivos de Atraso</div>
+                <div id="motivos-list">
+                    <!-- Dinâmico -->
+                </div>
+                <hr class="divider-orange">
+                <div id="motivos-highlights" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
+                    <!-- Dinâmico -->
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Performance — Cobradores</div>
+                <div class="chart-wrap" style="height:180px;">
+                    <canvas id="chartComp"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-brand">CRIFFER <span class="footer-dot">·</span> EVERYTHING MATTERS <span class="footer-dot">·</span> INADIMPLÊNCIA <span id="footer-period">--</span></div>
+            <div style="font-size:11px;color:#b5b5b5;" id="footer-update">Atualizado em --/--/----</div>
+        </div>
+    </div>
+
+    <script src="data.js" charset="utf-8"></script>
+    <script>
+        let charts = {};
+
+        function renderPeriod(periodName) {
+            const data = dashData.dados[periodName];
+            if (!data) return;
+
+            const fmt = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 });
+            const fmtPct = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
+            // Update Header & Footer
+            document.getElementById('report-date').textContent = `Análise consolidada de cobranças recuperadas · Atualizado em: ${dashData.atualizadoEm}`;
+            document.getElementById('footer-period').textContent = periodName.toUpperCase();
+            document.getElementById('footer-update').textContent = `Atualizado em ${dashData.atualizadoEm.split(' ')[0]}`;
+
+            // KPIs
+            document.getElementById('kpi-recuperado').textContent = fmt.format(data.kpis.totalRecuperado);
+            document.getElementById('kpi-qtd').textContent = data.kpis.totalRegistros;
+            document.getElementById('kpi-juros').textContent = fmt.format(data.kpis.totalJuros);
+            document.getElementById('kpi-atraso').textContent = `${data.kpis.atrasoMedio} dias`;
+            document.getElementById('kpi-total-ano').textContent = fmt.format(dashData.totalAnoRecuperado);
+
+            // Reset dynamic lists
+            const cobradoresList = document.getElementById('cobradores-list');
+            cobradoresList.innerHTML = '';
+            const tableFilialTbody = document.querySelector('#table-filial tbody');
+            tableFilialTbody.innerHTML = '';
+            const filialBars = document.getElementById('filial-bars');
+            filialBars.innerHTML = '';
+            const motivosList = document.getElementById('motivos-list');
+            motivosList.innerHTML = '';
+            const highlights = document.getElementById('motivos-highlights');
+            highlights.innerHTML = '';
+
+            // Cobradores
+            data.porCobrador.forEach((c, idx) => {
+                const pct = (c.Valor / data.kpis.totalRecuperado) * 100;
+                const isOrange = idx === 0;
+                const initials = c.Nome.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                
+                const div = document.createElement('div');
+                div.className = 'cobrador-row';
+                div.innerHTML = `
+                    <div class="cobrador-avatar ${isOrange ? 'avatar-orange' : 'avatar-gray'}">${initials}</div>
+                    <div class="cobrador-info">
+                        <div class="cobrador-name">${c.Nome}</div>
+                        <div class="cobrador-qtd">${c.Qtd} cobranças &middot; atraso médio: ${Math.round(c.AtrasoMedio)} dias</div>
+                        <div style="margin-top:7px;">
+                            <div class="pct-bar-wrap">
+                                <div class="pct-bar-bg"><div class="pct-bar-fill ${isOrange ? '' : 'gray'}" style="width:${pct}%"></div></div>
+                                <div class="pct-val ${isOrange ? '' : 'gray'}">${fmtPct.format(pct)}%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cobrador-value">
+                        <div class="cobrador-valor" style="${isOrange ? '' : 'color:#525252'}">${fmt.format(c.Valor)}</div>
+                        <div class="cobrador-atraso">+ ${fmt.format(c.Juros)} juros</div>
+                    </div>
+                `;
+                cobradoresList.appendChild(div);
+            });
+
+            // Filiais
+            data.porFilial.forEach((f, idx) => {
+                const pct = (f.VRecuperado / data.kpis.totalRecuperado) * 100;
+                const isOrange = idx === 0;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><span class="badge ${isOrange ? 'badge-orange' : 'badge-gray'}">${f.Nome}</span></td>
+                    <td style="text-align:right">${f.Qtd}</td>
+                    <td style="text-align:right">${fmt.format(f.VOriginal)}</td>
+                    <td style="text-align:right">${fmt.format(f.Juros)}</td>
+                    <td style="text-align:right;font-weight:700">${fmt.format(f.VRecuperado)}</td>
+                    <td style="text-align:right">
+                        <div class="pct-bar-wrap" style="justify-content:flex-end">
+                            <div class="pct-bar-bg" style="width:80px"><div class="pct-bar-fill ${isOrange ? '' : 'gray'}" style="width:${pct}%"></div></div>
+                            <div class="pct-val ${isOrange ? '' : 'gray'}">${fmtPct.format(pct)}%</div>
+                        </div>
+                    </td>
+                `;
+                tableFilialTbody.appendChild(tr);
+
+                const bar = document.createElement('div');
+                bar.className = 'filial-seg';
+                bar.style.width = `${pct}%`;
+                bar.style.background = isOrange ? '#ec6e2a' : '#525252';
+                bar.style.color = '#fff';
+                bar.textContent = `${fmtPct.format(pct)}% ${f.Nome.split(' ')[1] || f.Nome}`;
+                filialBars.appendChild(bar);
+            });
+            tableFilialTbody.insertAdjacentHTML('beforeend', `<tr><td><strong>Total</strong></td><td style="text-align:right">${data.kpis.totalRegistros}</td><td style="text-align:right">${fmt.format(data.kpis.totalOriginal)}</td><td style="text-align:right">${fmt.format(data.kpis.totalJuros)}</td><td style="text-align:right">${fmt.format(data.kpis.totalRecuperado)}</td><td style="text-align:right">100%</td></tr>`);
+
+            // Motivos
+            data.porMotivo.forEach((m, idx) => {
+                const pct = data.kpis.totalRecuperado > 0 ? (m.Valor / data.kpis.totalRecuperado) * 100 : 0;
+                const color = idx === 0 ? '#ec6e2a' : (idx === 1 ? '#525252' : '#ffbb96');
+                if (idx < 4) {
+                    const div = document.createElement('div');
+                    div.className = 'motivo-row';
+                    div.innerHTML = `<div class="motivo-label" style="font-size:11px">${m.Nome}</div><div class="pct-bar-bg" style="flex:1"><div class="pct-bar-fill" style="width:${pct}%; background:${color}"></div></div><div class="motivo-qtd">${m.Qtd}</div>`;
+                    motivosList.appendChild(div);
+                }
+                if (idx < 2) {
+                    const h = document.createElement('div');
+                    h.style = `text-align:center;padding:10px;background:${idx === 0 ? '#fff8f4' : '#f8f8f8'};border-radius:8px;`;
+                    h.innerHTML = `<div style="font-size:10px;color:${color};font-weight:700;letter-spacing:1px;text-transform:uppercase">${m.Nome}</div><div style="font-size:20px;font-weight:900;color:${color};margin-top:3px;">${fmt.format(m.Valor)}</div><div style="font-size:10px;color:#b5b5b5">${fmtPct.format(pct)}% do total</div>`;
+                    highlights.appendChild(h);
+                }
+            });
+
+            // Re-render Charts
+            const orange = '#ec6e2a';
+            const chumbo = '#525252';
+            const peach = '#ffbb96';
+
+            if (charts.comp) charts.comp.destroy();
+            charts.comp = new Chart(document.getElementById('chartComp'), {
+                type: 'doughnut',
+                data: { labels: data.porCobrador.map(c => `${c.Nome} — ${fmt.format(c.Valor)}`), datasets: [{ data: data.porCobrador.map(c => c.Valor), backgroundColor: [orange, chumbo, peach, '#888888'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, cutout: '68%', plugins: { legend: { position: 'bottom', labels: { font: { size: 10 }, boxWidth: 10 } } } }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof dashData === 'undefined') return;
+
+            const selector = document.getElementById('periodo-selector');
+            dashData.periodos.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p;
+                opt.textContent = p;
+                selector.appendChild(opt);
+            });
+
+            selector.addEventListener('change', (e) => renderPeriod(e.target.value));
+            renderPeriod(dashData.periodos[0]); // Initial render
+        });
+    </script>
+</body>
+</html>

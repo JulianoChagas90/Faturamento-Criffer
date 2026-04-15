@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRIFFER — Dashboard de Faturamento</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <script src="data.js"></script>
     <style>
         :root {
@@ -46,7 +47,7 @@
             padding: 0 0 40px;
         }
         .header {
-            background: var(--bg-dash);
+            background: #000;
             border-bottom: 2px solid var(--accent);
             padding: 18px 28px 14px;
             display: flex;
@@ -54,14 +55,14 @@
             justify-content: space-between;
         }
         .logo img { height: 32px; display: block; }
-        .header-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+        .header .header-sub { font-size: 12px; color: #888; margin-top: 2px; }
         
         .header-actions { display: flex; align-items: center; gap: 15px; }
 
-        .theme-toggle {
-            background: var(--bg-input);
-            border: 1px solid var(--border);
-            color: var(--text-muted);
+        .header .theme-toggle {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #888;
             padding: 6px 12px;
             border-radius: 6px;
             font-size: 11px;
@@ -71,12 +72,12 @@
             font-weight: 700;
             transition: 0.2s;
         }
-        .theme-toggle:hover { border-color: var(--accent); color: var(--text-main); }
+        .header .theme-toggle:hover { border-color: var(--accent); color: #fff; }
 
-        select { 
-            background: var(--bg-input); 
-            color: var(--text-main); 
-            border: 1px solid var(--border); 
+        .header select { 
+            background: #1a1a1a; 
+            color: #fff; 
+            border: 1px solid #333; 
             border-radius: 6px; 
             padding: 6px 14px; 
             font-size: 12px; 
@@ -85,7 +86,7 @@
             transition: 0.2s;
             font-family: Tahoma, sans-serif;
         }
-        select:hover { border-color: var(--accent); }
+        .header select:hover { border-color: var(--accent); }
 
         .tabs {
             display: flex;
@@ -178,6 +179,53 @@
         .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); }
         .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
 
+        .map-layout { display: grid; grid-template-columns: 1fr 350px; gap: 24px; margin-top: 10px; }
+        .map-panel { position: relative; display: flex; flex-direction: column; }
+        .map-container { flex: 1; min-height: 500px; display: flex; align-items: center; justify-content: center; }
+        #brasilMap { width: 100%; max-height: 580px; cursor: pointer; }
+        #brasilMap path { transition: opacity 0.2s, filter 0.2s; stroke: var(--bg-dash); stroke-width: 0.8; }
+        #brasilMap path:hover { filter: brightness(1.2) drop-shadow(0 0 4px var(--accent)); }
+        
+        [data-theme="dark"] #brasilMap path { filter: drop-shadow(0 0 2px rgba(236, 110, 42, 0.15)); }
+        
+        .map-legend { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--text-muted); margin-top: 10px; }
+        .legend-bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; width: 140px; }
+        .legend-bar span { flex: 1; }
+
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .state-card-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 180px; color: var(--text-sub); gap: 10px; text-align: center; }
+        .state-card-placeholder svg { opacity: 0.3; }
+        
+        .state-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .state-uf-badge { width: 44px; height: 44px; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; border-radius: 8px; }
+        .state-name { font-size: 18px; font-weight: 700; color: var(--text-main); }
+        .state-region { font-size: 11px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; }
+
+        .state-metric { margin-bottom: 15px; }
+        .state-metric-label { font-size: 10px; text-transform: uppercase; color: var(--text-label); margin-bottom: 4px; }
+        .state-metric-value { font-size: 22px; font-weight: 700; color: var(--accent); }
+        .state-bar-wrap { margin-bottom: 15px; }
+        .state-bar-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
+        .state-bar-track { height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden; }
+        .state-bar-fill { height: 100%; background: var(--accent); transition: width 0.4s; }
+
+        .ranking-list { list-style: none; }
+        .ranking-item { display: flex; align-items: center; gap: 10px; padding: 8px 6px; border-bottom: 1px solid var(--border); cursor: pointer; transition: 0.1s; border-radius: 4px; }
+        .ranking-item:hover { background: var(--bg-input); }
+        .rank-pos { width: 18px; font-size: 10px; color: var(--text-sub); font-weight: 700; text-align: right; }
+        .rank-uf { width: 28px; height: 22px; background: var(--bg-input); border-radius: 4px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+        .rank-item-top .rank-uf { background: var(--accent); color: #fff; }
+        .rank-bar-wrap { flex: 1; }
+        .rank-name { font-size: 12px; color: var(--text-main); margin-bottom: 3px; }
+        .rank-bar-track { height: 4px; background: var(--bg-input); border-radius: 2px; overflow: hidden; }
+        .rank-bar-fill { height: 100%; background: var(--accent); }
+        .rank-value { font-size: 11px; font-weight: 700; color: var(--text-muted); min-width: 55px; text-align: right; }
+
+        #tooltip { position: fixed; background: #000; color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 12px; pointer-events: none; display: none; z-index: 9999; border-left: 3px solid var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+
+        @media (max-width: 1000px) {
+            .map-layout { grid-template-columns: 1fr; }
+        }
         @media (max-width: 700px) {
             .two-col, .three-col { grid-template-columns: 1fr; }
         }
@@ -227,14 +275,59 @@
 
     <div id="tab-regiao" class="container">
         <div id="regiao-kpis" class="kpi-grid"></div>
-        <div class="two-col">
-            <div class="panel">
-                <div class="panel-title">Desempenho por Região</div>
-                <div id="regiao-bars"></div>
+        <div class="map-layout">
+            <div class="panel map-panel">
+                <div class="panel-title">Faturamento por Estado — clique para detalhar</div>
+                <div class="map-container">
+                    <svg id="brasilMap" viewBox="0 0 760 780"></svg>
+                </div>
+                <div class="map-legend">
+                    <span>Baixo</span>
+                    <div class="legend-bar">
+                        <span style="background:#ffd8b1"></span>
+                        <span style="background:#ffbb96"></span>
+                        <span style="background:#f08c52"></span>
+                        <span style="background:#ec6e2a"></span>
+                        <span style="background:#bf360c"></span>
+                    </div>
+                    <span>Alto</span>
+                </div>
             </div>
-            <div class="panel">
-                <div class="panel-title">Top 10 Estados</div>
-                <table><thead><tr><th>Estado</th><th>Região</th><th style="text-align:right">Total</th><th style="text-align:right">%</th></tr></thead><tbody id="estado-tbody"></tbody></table>
+            
+            <div class="sidebar">
+                <div class="panel state-card">
+                    <div class="panel-title">Detalhes do Estado</div>
+                    <div id="statePlaceholder" class="state-card-placeholder">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 13l4.553 2.276A1 1 0 0021 21.382V10.618a1 1 0 00-.553-.894L15 7m0 13V7m0 0L9 4"/></svg>
+                        <p>Selecione um estado no mapa</p>
+                    </div>
+                    <div id="stateDetail" style="display:none">
+                        <div class="state-header">
+                            <div class="state-uf-badge" id="detailUF">--</div>
+                            <div>
+                                <div class="state-name" id="detailName">--</div>
+                                <div class="state-region" id="detailRegion">--</div>
+                            </div>
+                        </div>
+                        <div class="state-metric">
+                            <div class="state-metric-label">Faturamento</div>
+                            <div class="state-metric-value" id="detailValue">--</div>
+                        </div>
+                        <div class="state-bar-wrap">
+                            <div class="state-bar-label"><span>% do total nacional</span> <span id="detailPerc">0%</span></div>
+                            <div class="state-bar-track"><div class="state-bar-fill" id="detailBar" style="width:0%"></div></div>
+                        </div>
+                        <div class="state-metric" style="margin-top:16px;">
+                            <div class="state-metric-label">Ranking Nacional</div>
+                            <div class="state-metric-value" id="detailRank" style="color:var(--text-muted)">--</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel ranking-card">
+                    <div class="panel-title">Top 10 Estados</div>
+                    <ul class="ranking-list" id="rankingList"></ul>
+                </div>
             </div>
         </div>
     </div>
@@ -281,6 +374,22 @@
     const pct = v => (v||0).toLocaleString('pt-BR', { style: 'percent', minimumFractionDigits: 1 });
     let chartInstances = {};
 
+    const STATE_NAMES = {
+        "AC":"Acre","AL":"Alagoas","AP":"Amapá","AM":"Amazonas","BA":"Bahia",
+        "CE":"Ceará","DF":"Distrito Federal","ES":"Espírito Santo","GO":"Goiás",
+        "MA":"Maranhão","MT":"Mato Grosso","MS":"Mato Grosso do Sul","MG":"Minas Gerais",
+        "PA":"Pará","PB":"Paraíba","PR":"Paraná","PE":"Pernambuco","PI":"Piauí",
+        "RJ":"Rio de Janeiro","RN":"Rio Grande do Norte","RS":"Rio Grande do Sul",
+        "RO":"Rondônia","RR":"Roraima","SC":"Santa Catarina","SP":"São Paulo",
+        "SE":"Sergipe","TO":"Tocantins"
+    };
+
+    let brazilGeoJson = null;
+    let selectedUF = null;
+    let autoRotateInterval = null;
+    let isManualSelect = false;
+    let rotateIndex = 0;
+
     const ORANGE='#ec6e2a', GRAY='#525252', SALMON='#ffbb96', DARK='#888888';
 
     function initHeader() {
@@ -296,6 +405,14 @@
         const tabEl = document.querySelector(`.tab[onclick*="${id}"]`);
         if(tabEl) tabEl.classList.add('active');
         document.getElementById(`tab-${id}`).classList.add('active');
+        
+        if(id === 'regiao') {
+            isManualSelect = false; // Permite reiniciar se mudar de aba
+            if(!brazilGeoJson) initMap();
+            else startAutoRotate();
+        } else {
+            if(autoRotateInterval) clearInterval(autoRotateInterval);
+        }
     }
 
     function updateDashboard(pid) {
@@ -310,6 +427,12 @@
         renderRegiao(data);
         renderVendedor(data, y);
         renderFaixas(data);
+
+        // Se estiver na aba região, reinicia o carrossel para os novos dados
+        if(document.getElementById('tab-regiao').classList.contains('active')) {
+            isManualSelect = false;
+            startAutoRotate();
+        }
     }
 
     function renderResumo(cur, prev, ytd) {
@@ -337,7 +460,7 @@
                 <div class="kpi-label">${k.label}</div>
                 <div class="kpi-value ${k.class||''}">${k.val}</div>
                 <div class="kpi-sub">${k.sub}</div>
-                ${k.sub2 ? `<div class="kpi-sub" style="color:#888; font-size:10px; margin-top:6px; border-top:1px solid #222; padding-top:4px">${k.sub2}</div>` : ''}
+                ${k.sub2 ? `<div class="kpi-sub" style="color:var(--text-muted); font-size:10px; margin-top:6px; border-top:1px solid var(--border); padding-top:4px">${k.sub2}</div>` : ''}
             </div>
         `).join('');
 
@@ -366,21 +489,24 @@
         }, { cutout: '70%', plugins: { legend: { display: false } } });
 
         document.getElementById('donut-legend').innerHTML = segs.map(s => `
-            <div class="legend-item"><div class="legend-dot" style="background:${s.color}"></div><span>${s.n}</span><span style="margin-left:auto;color:#fff">${pct(s.v/(bruto||1))}</span></div>
+            <div class="legend-item"><div class="legend-dot" style="background:${s.color}"></div><span>${s.n}</span><span style="margin-left:auto;color:var(--text-main)">${pct(s.v/(bruto||1))}</span></div>
         `).join('');
 
         const decs = [ { n: '01–10', v: cur.decadas.d1 }, { n: '11–20', v: cur.decadas.d2 }, { n: '21–31', v: cur.decadas.d3 } ];
         document.getElementById('decada-grid').innerHTML = decs.map(dx => `
-            <div style="text-align:center;padding:18px 10px;background:#1a1a1a;border-radius:8px;border:1px solid #222">
-                <div style="font-size:10px;color:#666;margin-bottom:6px;font-weight:700">DIAS ${dx.n}</div>
+            <div style="text-align:center;padding:18px 10px;background:var(--bg-panel);border-radius:8px;border:1px solid var(--border)">
+                <div style="font-size:10px;color:var(--text-label);margin-bottom:6px;font-weight:700">DIAS ${dx.n}</div>
                 <div style="font-size:24px;font-weight:700;color:${dx.v > bruto/3 ? ORANGE : SALMON}">${pct(dx.v/(bruto||1))}</div>
-                <div style="font-size:12px;color:#ccc;margin-top:4px">${fmt(dx.v)}</div>
+                <div style="font-size:12px;color:var(--text-muted);margin-top:4px">${fmt(dx.v)}</div>
             </div>
         `).join('');
     }
 
     function renderRegiao(cur) {
         const bruto = cur.resumo.vendas.total + cur.resumo.servicos.total + cur.resumo.locacao.total + cur.resumo.exportacao.total;
+        const totalNacional = (cur.estados||[]).reduce((a,e)=>a+e.total, 0);
+        
+        // KPIs de Região
         const regObj = {}; 
         if(cur.estados) cur.estados.forEach(e => { regObj[e.regiao] = (regObj[e.regiao]||0) + e.total; });
         const regs = Object.keys(regObj).map(k=>({n:k, v:regObj[k]})).sort((a,b)=>b.v-a.v);
@@ -389,18 +515,160 @@
             <div class="kpi"><div class="kpi-label">${r.n}</div><div class="kpi-value ${idx === 0 ? 'orange' : ''}">${pct(r.v/(bruto||1))}</div><div class="kpi-sub">${fmt(r.v)}</div></div>
         `).join('');
 
-        document.getElementById('regiao-bars').innerHTML = regs.map((r, idx) => `
-            <div class="bar-row">
-                <div class="bar-label">${r.n}</div>
-                <div class="bar-track"><div class="bar-fill" style="width: ${(r.v/(regs[0].v||1)*100)}%;"><span class="bar-val" style="color:#fff">${fmt(r.v)}</span></div></div>
-                <div class="bar-pct">${pct(r.v/(bruto||1))}</div>
-            </div>
+        // Ranking Lateral
+        const sortedStates = (cur.estados||[]).sort((a,b)=>b.total-a.total);
+        const maxStateVal = sortedStates.length > 0 ? sortedStates[0].total : 1;
+        
+        document.getElementById('rankingList').innerHTML = sortedStates.slice(0, 10).map((e, i) => `
+            <li class="ranking-item ${i < 3 ? 'rank-item-top' : ''}" onclick="selectState('${e.uf}')">
+                <span class="rank-pos">${i+1}</span>
+                <span class="rank-uf">${e.uf}</span>
+                <div class="rank-bar-wrap">
+                    <div class="rank-name">${STATE_NAMES[e.uf] || e.uf}</div>
+                    <div class="rank-bar-track"><div class="rank-bar-fill" style="width:${(e.total/maxStateVal*100)}%"></div></div>
+                </div>
+                <span class="rank-value">${fmt(e.total)}</span>
+            </li>
         `).join('');
 
-        const topEstados = (cur.estados||[]).sort((a,b)=>b.total-a.total).slice(0, 10);
-        document.getElementById('estado-tbody').innerHTML = topEstados.map(e => `
-            <tr><td><strong>${e.uf}</strong></td><td>${e.regiao}</td><td style="text-align:right">${fmt(e.total)}</td><td style="text-align:right;color:#ec6e2a">${pct(e.total/(bruto||1))}</td></tr>
-        `).join('');
+        // Atualizar Mapa (Cores)
+        d3.selectAll("#brasilMap path").each(function(d) {
+            const uf = getUF(d);
+            const val = (cur.estados||[]).find(e => e.uf === uf)?.total || 0;
+            d3.select(this).attr("fill", colorScale(val, sortedStates));
+        });
+
+        // Atualizar Detalhes se houver estado selecionado
+        if(selectedUF) selectState(selectedUF);
+    }
+
+    function colorScale(v, states) {
+        if(!states || states.length === 0) return "#ffd8b1";
+        const maxV = states[0].total;
+        const minV = states[states.length-1].total;
+        const t = (v - minV) / (maxV - minV || 1);
+
+        if(t < 0.20) return "#ffd8b1";
+        if(t < 0.40) return "#ffbb96";
+        if(t < 0.60) return "#f08c52";
+        if(t < 0.80) return "#ec6e2a";
+        return "#bf360c";
+    }
+
+    function getUF(d) {
+        if(!d || !d.properties) return null;
+        return d.properties.sigla || d.properties.UF || d.properties.uf || d.properties.Estado || null;
+    }
+
+    function initMap() {
+        const svg = d3.select("#brasilMap");
+        const tooltip = document.getElementById("tooltip");
+
+        fetch("https://raw.githubusercontent.com/codeforgermany/click_that_hood/main/public/data/brazil-states.geojson")
+            .then(r => r.json())
+            .then(geo => {
+                brazilGeoJson = geo;
+                const proj = d3.geoMercator().fitSize([760, 780], geo);
+                const path = d3.geoPath(proj);
+
+                svg.selectAll("path")
+                    .data(geo.features)
+                    .join("path")
+                    .attr("d", path)
+                    .on("mousemove", function(event, feature) {
+                        const uf = getUF(feature);
+                        const curData = d.periods[document.getElementById('periodSelector').value].mensal;
+                        const stateData = curData.estados.find(e => e.uf === uf) || { total: 0 };
+                        const totalNacional = curData.estados.reduce((a,e)=>a+e.total, 0);
+                        
+                        tooltip.style.display = "block";
+                        tooltip.style.left = (event.clientX + 15) + "px";
+                        tooltip.style.top = (event.clientY - 10) + "px";
+                        tooltip.innerHTML = `<strong>${STATE_NAMES[uf] || uf}</strong> (${uf})<br>${fmt(stateData.total)}<br>${pct(stateData.total/(totalNacional||1))} do total`;
+                        
+                        if(!selectedUF || selectedUF !== uf) {
+                            d3.select(this).attr("stroke-width", 2).attr("stroke", "#b5451a");
+                        }
+                    })
+                    .on("mouseleave", function(event, feature) {
+                        tooltip.style.display = "none";
+                        const uf = getUF(feature);
+                        if(selectedUF !== uf) {
+                            d3.select(this).attr("stroke-width", 0.8).attr("stroke", "var(--bg-dash)");
+                        }
+                    })
+                    .on("click", (event, feature) => selectState(getUF(feature)));
+
+                // Labels
+                svg.selectAll("text")
+                    .data(geo.features)
+                    .join("text")
+                    .attr("x", d => path.centroid(d)[0])
+                    .attr("y", d => path.centroid(d)[1] + 4)
+                    .attr("text-anchor", "middle")
+                    .attr("font-size", d => ["RN","PB","PE","AL","SE","ES","RJ","DF"].includes(getUF(d)) ? "7px" : "10px")
+                    .attr("font-family", "Tahoma, sans-serif")
+                    .attr("font-weight", "bold")
+                    .attr("fill", "#fff")
+                    .attr("pointer-events", "none")
+                    .text(d => getUF(d));
+
+                // Forçar primeiro render e iniciar carrossel if active
+                updateDashboard(document.getElementById('periodSelector').value);
+                if(document.getElementById('tab-regiao').classList.contains('active')) startAutoRotate();
+            });
+    }
+
+    function startAutoRotate() {
+        if(autoRotateInterval) clearInterval(autoRotateInterval);
+        if(isManualSelect) return;
+
+        const curData = d.periods[document.getElementById('periodSelector').value].mensal;
+        const sorted = (curData.estados || []).sort((a,b) => b.total - a.total);
+        if(sorted.length === 0) return;
+
+        rotateIndex = 0;
+        autoRotateInterval = setInterval(() => {
+            if(isManualSelect) {
+                clearInterval(autoRotateInterval);
+                return;
+            }
+            selectState(sorted[rotateIndex].uf, true);
+            rotateIndex = (rotateIndex + 1) % sorted.length;
+        }, 3000);
+    }
+
+    function selectState(uf, isAuto = false) {
+        // Se o usuário clicar, para o modo automático
+        if(!isAuto) {
+            isManualSelect = true;
+            if(autoRotateInterval) clearInterval(autoRotateInterval);
+        }
+
+        selectedUF = uf;
+        const curData = d.periods[document.getElementById('periodSelector').value].mensal;
+        const states = curData.estados || [];
+        const state = states.find(e => e.uf === uf) || { uf, total: 0, regiao: "—" };
+        const totalNacional = states.reduce((a,e)=>a+e.total, 0);
+        const sorted = states.sort((a,b)=>b.total-a.total);
+        const rank = sorted.findIndex(e => e.uf === uf) + 1;
+
+        document.getElementById("statePlaceholder").style.display = "none";
+        document.getElementById("stateDetail").style.display = "block";
+        document.getElementById("detailUF").textContent = uf;
+        document.getElementById("detailName").textContent = STATE_NAMES[uf] || uf;
+        document.getElementById("detailRegion").textContent = state.regiao;
+        document.getElementById("detailValue").textContent = fmt(state.total);
+        const p = (state.total / (totalNacional || 1));
+        document.getElementById("detailPerc").textContent = pct(p);
+        document.getElementById("detailBar").style.width = (p * 100) + "%";
+        document.getElementById("detailRank").textContent = rank > 0 ? "#" + rank : "—";
+
+        // Marcar no mapa
+        d3.selectAll("#brasilMap path")
+            .attr("stroke", d => getUF(d) === uf ? "#b5451a" : "var(--bg-dash)")
+            .attr("stroke-width", d => getUF(d) === uf ? 2 : 0.8)
+            .attr("opacity", d => (!selectedUF || getUF(d) === selectedUF) ? 1 : 0.4);
     }
 
     function renderVendedor(cur, year) {
@@ -419,7 +687,7 @@
             <div class="bar-row">
                 <div class="bar-label" style="width:140px">${v.nome}</div>
                 <div class="bar-track"><div class="bar-fill" style="width: ${(v.total/(list[0].total||1)*100)}%;"><span class="bar-val" style="color:#fff">${fmt(v.total)}</span></div></div>
-                <div class="bar-pct" style="color:#fff; font-weight:700">${pct(v.total/(bruto||1))}</div>
+                <div class="bar-pct" style="color:var(--text-main); font-weight:700">${pct(v.total/(bruto||1))}</div>
             </div>
         `).join('');
 
@@ -443,14 +711,14 @@
         const maxF = Math.max(...cur.faixas.map(f=>f.t));
 
         document.getElementById('faixa-kpis').innerHTML = cur.faixas.map(f => `
-            <div class="kpi"><div class="kpi-label">${f.n}</div><div class="kpi-value">${pct(f.t/(bruto||1))}</div><div class="kpi-sub" style="color:#fff; font-weight:700">${f.c} clientes</div></div>
+            <div class="kpi"><div class="kpi-label">${f.n}</div><div class="kpi-value">${pct(f.t/(bruto||1))}</div><div class="kpi-sub" style="color:var(--text-muted); font-weight:700">${f.c} clientes</div></div>
         `).join('');
 
         document.getElementById('faixa-bars').innerHTML = cur.faixas.map(f => `
             <div class="bar-row">
                 <div class="bar-label" style="width:120px">${f.n}</div>
                 <div class="bar-track"><div class="bar-fill" style="width: ${(f.t/maxF*100)}%;"><span class="bar-val" style="color:#fff">${pct(f.t/(bruto||1))}</span></div></div>
-                <div class="bar-pct" style="color:#fff; font-weight:700">${fmt(f.t)}</div>
+                <div class="bar-pct" style="color:var(--text-main); font-weight:700">${fmt(f.t)}</div>
             </div>
         `).join('');
 
@@ -458,13 +726,17 @@
             <tr><td>${f.n}</td><td style="text-align:right">${f.c}</td><td style="text-align:right">${fmt(f.t)}</td><td style="text-align:right;color:#ec6e2a">${fmt(f.t/(f.c||1))}</td><td style="text-align:right;color:#888">${pct(f.c/(totalCli||1))}</td><td style="text-align:right;color:#ec6e2a">${pct(f.t/(bruto||1))}</td></tr>
         `).join('');
 
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        const txtColor = isLight ? '#495057' : '#888';
+        const gridColor = isLight ? 'rgba(0,0,0,0.05)' : '#1a1a1a';
+
         updateChart('faixaChart', 'bar', {
             labels: cur.faixas.map(f=>f.n),
             datasets: [
                 { label: '% Clientes', data: cur.faixas.map(f=>(f.c/totalCli)*100), backgroundColor: GRAY },
                 { label: '% Fat.', data: cur.faixas.map(f=>(f.t/bruto)*100), backgroundColor: ORANGE }
             ]
-        }, { scales: { y: { ticks: { color:'#888', font:{size:10}, callback: v=>v+'%' }, grid:{color:'#1a1a1a'} }, x: { ticks:{color:'#888', font:{size:10}}, grid:{display:false} } } });
+        }, { scales: { y: { ticks: { color: txtColor, font:{size:10}, callback: v=>v+'%' }, grid:{color: gridColor} }, x: { ticks:{color: txtColor, font:{size:10}}, grid:{display:false} } } });
     }
 
     function updateChart(id, type, data, options) {

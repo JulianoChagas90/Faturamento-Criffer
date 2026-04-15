@@ -1,0 +1,418 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #fff; }
+  .dash { font-family: 'Barlow', sans-serif; background: #fff; padding: 28px 32px; min-height: 100vh; }
+  .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; border-bottom: 3px solid #ec6e2a; padding-bottom: 16px; }
+  .logo-area { display: flex; flex-direction: column; }
+  .logo-text { font-size: 32px; font-weight: 900; color: #ec6e2a; letter-spacing: 3px; line-height: 1; }
+  .logo-sub { font-size: 11px; color: #525252; letter-spacing: 2px; font-weight: 500; margin-top: 2px; }
+  .header-right { text-align: right; }
+  .report-title { font-size: 18px; font-weight: 700; color: #525252; letter-spacing: 1px; }
+  .report-date { font-size: 12px; color: #b5b5b5; margin-top: 4px; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
+  .kpi { background: #fff; border: 1.5px solid #f0f0f0; border-radius: 10px; padding: 16px 18px; position: relative; overflow: hidden; }
+  .kpi::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #ec6e2a; }
+  .kpi.gray::before { background: #525252; }
+  .kpi.light-orange::before { background: #ffbb96; }
+  .kpi.dark::before { background: #b5b5b5; }
+  .kpi-label { font-size: 10px; font-weight: 700; color: #b5b5b5; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .kpi-value { font-size: 26px; font-weight: 900; color: #222; line-height: 1; }
+  .kpi-value.orange { color: #ec6e2a; }
+  .kpi-sub { font-size: 11px; color: #b5b5b5; margin-top: 5px; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .card { background: #fff; border: 1.5px solid #f0f0f0; border-radius: 10px; padding: 18px 20px; }
+  .card-title { font-size: 11px; font-weight: 700; color: #ec6e2a; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; border-bottom: 1px solid #f5f5f5; padding-bottom: 10px; }
+
+  .table-dash { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .table-dash th { font-size: 10px; font-weight: 700; color: #b5b5b5; letter-spacing: 1px; text-transform: uppercase; padding: 6px 8px; text-align: left; border-bottom: 1px solid #f0f0f0; }
+  .table-dash td { padding: 8px 8px; border-bottom: 1px solid #f8f8f8; color: #333; vertical-align: middle; }
+  .table-dash tr:last-child td { font-weight: 700; background: #fafafa; color: #333; border-top: 1.5px solid #eee; }
+  .badge { display: inline-flex; align-items: center; justify-content: center; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+  .badge-orange { background: #fff3ed; color: #ec6e2a; }
+  .badge-gray { background: #f5f5f5; color: #525252; }
+  .pct-bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .pct-bar-bg { flex: 1; height: 6px; background: #f0f0f0; border-radius: 3px; overflow: hidden; }
+  .pct-bar-fill { height: 100%; border-radius: 3px; background: #ec6e2a; }
+  .pct-bar-fill.gray { background: #525252; }
+  .pct-val { font-size: 12px; font-weight: 700; color: #ec6e2a; min-width: 38px; text-align: right; }
+  .pct-val.gray { color: #525252; }
+
+  .cobrador-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #f5f5f5; }
+  .cobrador-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .cobrador-avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; flex-shrink: 0; }
+  .avatar-orange { background: #fff3ed; color: #ec6e2a; }
+  .avatar-gray { background: #f5f5f5; color: #525252; }
+  .cobrador-info { flex: 1; }
+  .cobrador-name { font-size: 14px; font-weight: 700; color: #222; }
+  .cobrador-qtd { font-size: 11px; color: #b5b5b5; }
+  .cobrador-value { text-align: right; }
+  .cobrador-valor { font-size: 15px; font-weight: 900; color: #ec6e2a; }
+  .cobrador-atraso { font-size: 11px; color: #b5b5b5; }
+
+  .chart-wrap { position: relative; width: 100%; }
+  .legend-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 10px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #888; }
+  .legend-sq { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  .motivo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .motivo-label { font-size: 12px; color: #555; min-width: 130px; }
+  .motivo-qtd { font-size: 12px; font-weight: 700; color: #333; min-width: 30px; text-align: right; }
+  .divider-orange { border: none; border-top: 2px solid #ec6e2a; margin: 6px 0 16px; opacity: 0.15; }
+
+  .filial-split { display: flex; gap: 0; margin-top: 4px; border-radius: 6px; overflow: hidden; height: 28px; }
+  .filial-seg { display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+
+  .footer { margin-top: 18px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f0f0f0; padding-top: 12px; }
+  .footer-brand { font-size: 11px; color: #b5b5b5; letter-spacing: 1px; }
+  .footer-dot { color: #ec6e2a; font-weight: 900; }
+</style>
+
+<div class="dash">
+  <div class="header">
+    <div class="logo-area">
+      <div class="logo-text">CRIFFER</div>
+      <div class="logo-sub">EVERYTHING MATTERS</div>
+    </div>
+    <div class="header-right">
+      <div class="report-title">RELATÓRIO DE INADIMPLÊNCIA — MARÇO 2026</div>
+      <div class="report-date">Análise consolidada de cobranças recuperadas &nbsp;·&nbsp; Atualizado em: 31/03/2026</div>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">Total Recuperado</div>
+      <div class="kpi-value orange">R$ 238.706</div>
+      <div class="kpi-sub">Valor total recebido no mês</div>
+    </div>
+    <div class="kpi gray">
+      <div class="kpi-label">Total de Cobranças</div>
+      <div class="kpi-value">290</div>
+      <div class="kpi-sub">Registros no período</div>
+    </div>
+    <div class="kpi light-orange">
+      <div class="kpi-label">Juros Totais</div>
+      <div class="kpi-value">R$ 11.612</div>
+      <div class="kpi-sub">Acumulado de juros recebidos</div>
+    </div>
+    <div class="kpi dark">
+      <div class="kpi-label">Atraso Médio</div>
+      <div class="kpi-value">227 dias</div>
+      <div class="kpi-sub">Vencimento → pagamento</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Recuperação por Cobrador</div>
+      <div class="cobrador-row">
+        <div class="cobrador-avatar avatar-orange">LE</div>
+        <div class="cobrador-info">
+          <div class="cobrador-name">Letícia</div>
+          <div class="cobrador-qtd">153 cobranças &nbsp;·&nbsp; atraso médio: 38 dias</div>
+          <div style="margin-top:7px;">
+            <div class="pct-bar-wrap">
+              <div class="pct-bar-bg"><div class="pct-bar-fill" style="width:75.8%"></div></div>
+              <div class="pct-val">75,8%</div>
+            </div>
+          </div>
+        </div>
+        <div class="cobrador-value">
+          <div class="cobrador-valor">R$ 180.974</div>
+          <div class="cobrador-atraso">+ R$ 3.367 juros</div>
+        </div>
+      </div>
+      <div class="cobrador-row">
+        <div class="cobrador-avatar avatar-gray">PO</div>
+        <div class="cobrador-info">
+          <div class="cobrador-name">Positiva</div>
+          <div class="cobrador-qtd">137 cobranças &nbsp;·&nbsp; atraso médio: 433 dias</div>
+          <div style="margin-top:7px;">
+            <div class="pct-bar-wrap">
+              <div class="pct-bar-bg"><div class="pct-bar-fill gray" style="width:24.2%"></div></div>
+              <div class="pct-val gray">24,2%</div>
+            </div>
+          </div>
+        </div>
+        <div class="cobrador-value">
+          <div class="cobrador-valor" style="color:#525252">R$ 57.732</div>
+          <div class="cobrador-atraso">+ R$ 8.244 juros</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Recuperação por Filial</div>
+      <table class="table-dash">
+        <thead>
+          <tr>
+            <th>Filial</th>
+            <th style="text-align:right">Cobranças</th>
+            <th style="text-align:right">Val. Original</th>
+            <th style="text-align:right">Juros</th>
+            <th style="text-align:right">Recuperado</th>
+            <th style="text-align:right">% Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-orange">CFF Desenvolvimento</span></td>
+            <td style="text-align:right">197</td>
+            <td style="text-align:right">R$ 194.220</td>
+            <td style="text-align:right">R$ 8.799</td>
+            <td style="text-align:right;font-weight:700">R$ 203.019</td>
+            <td style="text-align:right">
+              <div class="pct-bar-wrap" style="justify-content:flex-end">
+                <div class="pct-bar-bg" style="width:80px"><div class="pct-bar-fill" style="width:85.1%"></div></div>
+                <div class="pct-val">85,1%</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-gray">CFF Serviços</span></td>
+            <td style="text-align:right">93</td>
+            <td style="text-align:right">R$ 32.874</td>
+            <td style="text-align:right">R$ 2.813</td>
+            <td style="text-align:right;font-weight:700">R$ 35.687</td>
+            <td style="text-align:right">
+              <div class="pct-bar-wrap" style="justify-content:flex-end">
+                <div class="pct-bar-bg" style="width:80px"><div class="pct-bar-fill gray" style="width:14.9%"></div></div>
+                <div class="pct-val gray">14,9%</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Total</strong></td>
+            <td style="text-align:right">290</td>
+            <td style="text-align:right">R$ 227.094</td>
+            <td style="text-align:right">R$ 11.612</td>
+            <td style="text-align:right">R$ 238.706</td>
+            <td style="text-align:right">100%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top:14px;">
+        <div style="font-size:11px;color:#b5b5b5;letter-spacing:1px;margin-bottom:6px;font-weight:700;text-transform:uppercase">Distribuição por Filial</div>
+        <div class="filial-split">
+          <div class="filial-seg" style="width:85.1%;background:#ec6e2a;color:#fff">85,1% Desenv.</div>
+          <div class="filial-seg" style="width:14.9%;background:#525252;color:#fff">14,9%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid3">
+    <div class="card" style="grid-column: span 2;">
+      <div class="card-title">Distribuição por Prazo de Recuperação (Dias em Atraso)</div>
+      <div class="legend-row">
+        <div class="legend-item"><div class="legend-sq" style="background:#ec6e2a"></div>Qtd. cobranças</div>
+        <div class="legend-item"><div class="legend-sq" style="background:#525252"></div>Valor recuperado</div>
+      </div>
+      <div class="chart-wrap" style="height:200px;">
+        <canvas id="chartPrazo" role="img" aria-label="Gráfico de barras agrupadas por prazo de recuperação">Distribuição: 1-30 dias: 60 cobranças; 31-90: 85; 91-120: 11; 121-180: 16; acima de 180: 115.</canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Motivos de Atraso</div>
+      <div class="motivo-row">
+        <div class="motivo-label" style="font-size:11px">Não tinha dinheiro</div>
+        <div class="pct-bar-bg" style="flex:1"><div class="pct-bar-fill" style="width:43.5%"></div></div>
+        <div class="motivo-qtd">129</div>
+      </div>
+      <div class="motivo-row">
+        <div class="motivo-label" style="font-size:11px">Positiva</div>
+        <div class="pct-bar-bg" style="flex:1"><div class="pct-bar-fill gray" style="width:46.2%"></div></div>
+        <div class="motivo-qtd">137</div>
+      </div>
+      <div class="motivo-row">
+        <div class="motivo-label" style="font-size:11px">Esqueceu</div>
+        <div class="pct-bar-bg" style="flex:1"><div class="pct-bar-fill" style="width:7.4%;background:#ffbb96"></div></div>
+        <div class="motivo-qtd">22</div>
+      </div>
+      <div class="motivo-row">
+        <div class="motivo-label" style="font-size:11px">Não sabia da dívida</div>
+        <div class="pct-bar-bg" style="flex:1"><div class="pct-bar-fill" style="width:0.7%;background:#b5b5b5"></div></div>
+        <div class="motivo-qtd">2</div>
+      </div>
+      <hr class="divider-orange">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
+        <div style="text-align:center;padding:10px;background:#fff8f4;border-radius:8px;">
+          <div style="font-size:10px;color:#ec6e2a;font-weight:700;letter-spacing:1px;text-transform:uppercase">Não tinha dinheiro</div>
+          <div style="font-size:20px;font-weight:900;color:#ec6e2a;margin-top:3px;">R$ 102.685</div>
+          <div style="font-size:10px;color:#b5b5b5">43,0% do total</div>
+        </div>
+        <div style="text-align:center;padding:10px;background:#f8f8f8;border-radius:8px;">
+          <div style="font-size:10px;color:#525252;font-weight:700;letter-spacing:1px;text-transform:uppercase">Esqueceu</div>
+          <div style="font-size:20px;font-weight:900;color:#525252;margin-top:3px;">R$ 58.005</div>
+          <div style="font-size:10px;color:#b5b5b5">24,3% do total</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Performance — Letícia vs Positiva</div>
+      <div class="chart-wrap" style="height:180px;">
+        <canvas id="chartComp" role="img" aria-label="Comparativo de valor recuperado entre Letícia e Positiva">Letícia: R$180.974; Positiva: R$57.732.</canvas>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Valor Original vs Recuperado (por Filial)</div>
+      <div class="chart-wrap" style="height:180px;">
+        <canvas id="chartFilial" role="img" aria-label="Comparativo de valor original e recuperado por filial">CFF Desenvolvimento: original R$194.220, recuperado R$203.019. CFF Serviços: original R$32.874, recuperado R$35.687.</canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand">CRIFFER <span class="footer-dot">·</span> EVERYTHING MATTERS <span class="footer-dot">·</span> INADIMPLÊNCIA MARÇO 2026</div>
+    <div style="font-size:11px;color:#b5b5b5;">Atualizado em 31/03/2026</div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const orange = '#ec6e2a';
+const darkGray = '#525252';
+const lightOrange = '#ffbb96';
+const lightGray = '#b5b5b5';
+
+Chart.defaults.font.family = "'Barlow', sans-serif";
+Chart.defaults.font.size = 11;
+
+new Chart(document.getElementById('chartPrazo'), {
+  type: 'bar',
+  data: {
+    labels: ['1–30 dias','31–90 dias','91–120 dias','121–180 dias','+ 180 dias'],
+    datasets: [
+      {
+        label: 'Qtd. cobranças',
+        data: [60, 85, 11, 16, 115],
+        backgroundColor: orange,
+        borderRadius: 4,
+        yAxisID: 'y',
+      },
+      {
+        label: 'Val. recuperado (R$)',
+        data: [46084, 114633, 19859, 10378, 46804],
+        backgroundColor: darkGray,
+        borderRadius: 4,
+        yAxisID: 'y1',
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => {
+            if (ctx.datasetIndex === 0) return ' ' + ctx.raw + ' cobranças';
+            return ' R$ ' + ctx.raw.toLocaleString('pt-BR');
+          }
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#888' } },
+      y: {
+        type: 'linear', position: 'left',
+        grid: { color: '#f5f5f5' },
+        ticks: { color: orange, stepSize: 20 },
+        title: { display: true, text: 'Qtd.', color: orange, font: { size: 10 } }
+      },
+      y1: {
+        type: 'linear', position: 'right',
+        grid: { drawOnChartArea: false },
+        ticks: { color: darkGray, callback: (v) => 'R$' + (v/1000).toFixed(0) + 'k' },
+        title: { display: true, text: 'Valor (R$)', color: darkGray, font: { size: 10 } }
+      }
+    }
+  }
+});
+
+new Chart(document.getElementById('chartComp'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Letícia — R$ 180.974', 'Positiva — R$ 57.732'],
+    datasets: [{
+      data: [180974, 57732],
+      backgroundColor: [orange, darkGray],
+      borderWidth: 0,
+      hoverOffset: 6,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '68%',
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+        labels: { font: { size: 11 }, color: '#555', padding: 12, boxWidth: 10, boxHeight: 10 }
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ' R$ ' + ctx.raw.toLocaleString('pt-BR')
+        }
+      }
+    }
+  }
+});
+
+new Chart(document.getElementById('chartFilial'), {
+  type: 'bar',
+  data: {
+    labels: ['CFF Desenvolvimento', 'CFF Serviços'],
+    datasets: [
+      {
+        label: 'Valor Original',
+        data: [194220, 32874],
+        backgroundColor: lightOrange,
+        borderRadius: 4,
+      },
+      {
+        label: 'Valor Recuperado',
+        data: [203019, 35687],
+        backgroundColor: orange,
+        borderRadius: 4,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    indexAxis: 'y',
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+        labels: { font: { size: 11 }, color: '#555', padding: 10, boxWidth: 10, boxHeight: 10 }
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ' R$ ' + ctx.raw.toLocaleString('pt-BR')
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: '#f5f5f5' },
+        ticks: { color: '#888', callback: (v) => 'R$' + (v/1000).toFixed(0) + 'k' }
+      },
+      y: { grid: { display: false }, ticks: { color: '#555' } }
+    }
+  }
+});
+</script>
