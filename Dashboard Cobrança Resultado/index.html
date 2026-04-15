@@ -269,8 +269,9 @@
                 selector.appendChild(opt);
             });
 
-            selector.addEventListener('change', (e) => renderPeriod(e.target.value));
-            renderPeriod(dashData.periodos[0]); 
+            const lastPeriod = dashData.periodos[dashData.periodos.length - 1];
+            selector.value = lastPeriod;
+            renderPeriod(lastPeriod); 
         });
     </script>
 </body>
