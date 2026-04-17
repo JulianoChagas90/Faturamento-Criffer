@@ -207,27 +207,44 @@
             });
             tableFilialTbody.insertAdjacentHTML('beforeend', `<tr><td><strong>Total</strong></td><td style="text-align:right">${data.kpis.totalRegistros}</td><td style="text-align:right">${fmt.format(data.kpis.totalOriginal)}</td><td style="text-align:right">${fmt.format(data.kpis.totalJuros)}</td><td style="text-align:right">${fmt.format(data.kpis.totalRecuperado)}</td><td style="text-align:right">100%</td></tr>`);
 
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
             // Motivos
             data.porMotivo.forEach((m, idx) => {
                 const pctVal = data.kpis.totalRecuperado > 0 ? (m.Valor / data.kpis.totalRecuperado) * 100 : 0;
-                const color = idx === 0 ? 'var(--accent)' : (idx === 1 ? 'var(--gray-bar)' : 'var(--text-sub)');
+                const barColor = idx === 0 ? 'var(--accent)' : (idx === 1 ? 'var(--gray-bar)' : 'var(--text-sub)');
+                
+                // Cores dos textos nos cards de destaque
+                let txtVal = barColor;
+                let txtLab = 'var(--text-label)';
+                let txtSub = 'var(--text-sub)';
+
+                if (idx === 1) {
+                    if (isLight) {
+                        txtVal = '#1a1a1a'; // Escurece o valor no tema claro
+                    } else {
+                        txtVal = '#ffffff'; // Branco no tema escuro
+                        txtLab = '#ffffff'; // Branco no tema escuro
+                        txtSub = '#ffffff'; // Branco no tema escuro
+                    }
+                }
+
                 if (idx < 4) {
                     const div = document.createElement('div');
                     div.className = 'motivo-row';
-                    div.innerHTML = `<div class="motivo-label">${m.Nome}</div><div class="pct-bar-bg" style="flex:1; height:18px"><div class="pct-bar-fill" style="width:${pctVal}%; background:${color}"></div></div><div class="motivo-qtd">${m.Qtd}</div>`;
+                    div.innerHTML = `<div class="motivo-label">${m.Nome}</div><div class="pct-bar-bg" style="flex:1; height:18px"><div class="pct-bar-fill" style="width:${pctVal}%; background:${barColor}"></div></div><div class="motivo-qtd">${m.Qtd}</div>`;
                     motivosList.appendChild(div);
                 }
                 if (idx < 2) {
                     const h = document.createElement('div');
                     h.className = 'card';
                     h.style = `text-align:center; padding:12px; background:var(--bg-input); border:none;`;
-                    h.innerHTML = `<div style="font-size:10px;color:var(--text-label);font-weight:700;letter-spacing:1px;text-transform:uppercase">${m.Nome}</div><div style="font-size:18px;font-weight:700;color:${color};margin-top:3px;">${fmt.format(m.Valor)}</div><div style="font-size:10px;color:var(--text-sub)">${fmtPct.format(pctVal)}% do total</div>`;
+                    h.innerHTML = `<div style="font-size:10px;color:${txtLab};font-weight:700;letter-spacing:1px;text-transform:uppercase">${m.Nome}</div><div style="font-size:18px;font-weight:700;color:${txtVal};margin-top:3px;">${fmt.format(m.Valor)}</div><div style="font-size:10px;color:${txtSub}">${fmtPct.format(pctVal)}% do total</div>`;
                     highlights.appendChild(h);
                 }
             });
 
             // Re-render Charts
-            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
             const textColor = isLight ? '#1a1a1a' : '#888';
             const orange = '#ec6e2a';
             const chumbo = '#525252';
