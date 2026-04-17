@@ -242,9 +242,9 @@ body {
     background: #050505; 
     margin-top: 20px;
 }
-.footer-brand { font-size: 11px; color: var(--text-label); letter-spacing: 1px; }
+.footer-brand { font-size: 11px; color: #ffffff; letter-spacing: 1px; }
 .footer-dot { color: var(--accent); font-weight: 900; }
-#footer-period { font-weight: 700; color: var(--text-muted); }
+#footer-period { font-weight: 700; color: #ffffff; }
 
 /* ── RESPONSIVIDADE ── */
 @media (max-width: 900px) {
