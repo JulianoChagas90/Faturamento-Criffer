@@ -10,8 +10,8 @@ const dashData = {
                                      "porMotivo":  [
                                                        {
                                                            "Nome":  "DIFICULDADE FINANCEIRA",
-                                                           "Qtd":  19,
-                                                           "Valor":  22246.93
+                                                           "Qtd":  25,
+                                                           "Valor":  25313.72
                                                        },
                                                        {
                                                            "Nome":  "PAGAMENTO TOTAL",
@@ -19,14 +19,14 @@ const dashData = {
                                                            "Valor":  17013.399999999998
                                                        },
                                                        {
+                                                           "Nome":  "ESQUECEU",
+                                                           "Qtd":  13,
+                                                           "Valor":  13820.320000000003
+                                                       },
+                                                       {
                                                            "Nome":  "PAGAMENTO PARCIAL",
                                                            "Qtd":  20,
                                                            "Valor":  9123.69
-                                                       },
-                                                       {
-                                                           "Nome":  "ESQUECEU",
-                                                           "Qtd":  7,
-                                                           "Valor":  4374.7400000000007
                                                        },
                                                        {
                                                            "Nome":  "NÃO TINHA DINHEIRO",
@@ -37,137 +37,147 @@ const dashData = {
                                                            "Nome":  "NÃO SABIA DA DÍVIDA",
                                                            "Qtd":  5,
                                                            "Valor":  3202.9300000000003
+                                                       },
+                                                       {
+                                                           "Nome":  "NÃO RECEBEU NOTA FISCAL",
+                                                           "Qtd":  1,
+                                                           "Valor":  2159
+                                                       },
+                                                       {
+                                                           "Nome":  "RENEGOCIAÇÃO",
+                                                           "Qtd":  7,
+                                                           "Valor":  1000
                                                        }
                                                    ],
                                      "curvaABC":  [
                                                       {
                                                           "Cliente":  "JOSEMAR GOMES BARBOSA",
                                                           "Valor":  8524.9000000000015,
-                                                          "PctAcum":  14.205316133229266,
+                                                          "PctAcum":  11.263895218251925,
                                                           "Categoria":  "A"
                                                       },
                                                       {
                                                           "Cliente":  "GESTAO DE SEGURANCA E SAUDE NO TRABALHO LTDA",
                                                           "Valor":  7555.47,
-                                                          "PctAcum":  26.795239755222454,
+                                                          "PctAcum":  21.246888849220717,
                                                           "Categoria":  "A"
                                                       },
                                                       {
                                                           "Cliente":  "DINIZ ENGENHARIA E CONSULTORIA LTDA",
                                                           "Valor":  7272.2699999999995,
-                                                          "PctAcum":  38.913258072880041,
+                                                          "PctAcum":  30.855692152348841,
+                                                          "Categoria":  "A"
+                                                      },
+                                                      {
+                                                          "Cliente":  "AGUAS CUIABA S.A. - CONCESSIONARIA DE SERVICOS PUBLICOS DE AGUA E ESGOTO",
+                                                          "Valor":  3907,
+                                                          "PctAcum":  36.017985976054725,
                                                           "Categoria":  "A"
                                                       },
                                                       {
                                                           "Cliente":  "CEN ENGENHARIA DO NORDESTE E SERVICOS LTDA",
                                                           "Valor":  3367.95,
-                                                          "PctAcum":  44.52538190669739,
+                                                          "PctAcum":  40.468036522138732,
+                                                          "Categoria":  "A"
+                                                      },
+                                                      {
+                                                          "Cliente":  "FORACO BRASIL SA",
+                                                          "Valor":  3017.2,
+                                                          "PctAcum":  44.454643362396055,
                                                           "Categoria":  "A"
                                                       },
                                                       {
                                                           "Cliente":  "ALMEIDA E MENEZES LTDA",
                                                           "Valor":  2382.19,
-                                                          "PctAcum":  48.494902022994054,
+                                                          "PctAcum":  47.602215597843696,
+                                                          "Categoria":  "A"
+                                                      },
+                                                      {
+                                                          "Cliente":  "HPE AUTOMOTORES DO BRASIL LTDA",
+                                                          "Valor":  2159,
+                                                          "PctAcum":  50.454888330216619,
                                                           "Categoria":  "A"
                                                       },
                                                       {
                                                           "Cliente":  "ACSET LOCACAO E SERVICOS LTDA",
                                                           "Valor":  1680.53,
-                                                          "PctAcum":  51.295223425166014,
+                                                          "PctAcum":  52.675361747046011,
                                                           "Categoria":  "A"
                                                       },
                                                       {
                                                           "Cliente":  "SELF SERVICOS TECNICOS DE ENGENHARIA LT",
                                                           "Valor":  1668.16,
-                                                          "PctAcum":  54.074932296919073,
+                                                          "PctAcum":  54.879490762902982,
                                                           "Categoria":  "A"
                                                       },
                                                       {
                                                           "Cliente":  "MS TREINAMENTOS GESTAO E TECNOLOGIA LTDA",
                                                           "Valor":  1583.42,
-                                                          "PctAcum":  56.71343617047512,
+                                                          "PctAcum":  56.971653364984476,
                                                           "Categoria":  "A"
                                                       },
                                                       {
                                                           "Cliente":  "W FACCIOLI COMERCIO CONSULTORIA E ASSESS",
                                                           "Valor":  1566.9,
-                                                          "PctAcum":  59.324412234611579,
+                                                          "PctAcum":  59.041988197941919,
                                                           "Categoria":  "A"
                                                       },
                                                       {
                                                           "Cliente":  "FDB CONSULTORIA E ASSESSORIA EM SST LTDA",
                                                           "Valor":  1489.8899999999999,
-                                                          "PctAcum":  61.807064049147463,
+                                                          "PctAcum":  61.010570216114722,
                                                           "Categoria":  "A"
                                                       },
                                                       {
                                                           "Cliente":  "R. LEAL DE ARAUJO CONSULTORIA",
                                                           "Valor":  1402.3899999999999,
-                                                          "PctAcum":  64.143911788367788,
+                                                          "PctAcum":  62.863539050367834,
                                                           "Categoria":  "A"
                                                       },
                                                       {
                                                           "Cliente":  "MS2 SERVICOS LTDA",
                                                           "Valor":  1244.9,
-                                                          "PctAcum":  66.218328855343017,
+                                                          "PctAcum":  64.5084173665008,
+                                                          "Categoria":  "A"
+                                                      },
+                                                      {
+                                                          "Cliente":  "SERVICO SOCIAL IND CONST CIVIL JOINVILLE",
+                                                          "Valor":  1117.13,
+                                                          "PctAcum":  65.984474008240369,
                                                           "Categoria":  "A"
                                                       },
                                                       {
                                                           "Cliente":  "CARABALONE ASSESSORIA LTDA",
                                                           "Valor":  1103.15,
-                                                          "PctAcum":  68.056543320307057,
+                                                          "PctAcum":  67.442058966423417,
                                                           "Categoria":  "A"
                                                       },
                                                       {
                                                           "Cliente":  "CLINICA PORTO BELO SAUDE OCUPACIONAL LTDA",
                                                           "Valor":  1073.23,
-                                                          "PctAcum":  69.844901123174623,
+                                                          "PctAcum":  68.860110822173567,
                                                           "Categoria":  "A"
                                                       },
                                                       {
                                                           "Cliente":  "PREVEMT MEDICINA DO TRABALHO LTDA",
                                                           "Valor":  1066.29,
-                                                          "PctAcum":  71.6216945799543,
+                                                          "PctAcum":  70.268992900821985,
                                                           "Categoria":  "A"
                                                       },
                                                       {
-                                                          "Cliente":  "MARLOS ALAN PEREIRA SANTOS",
-                                                          "Valor":  987.04,
-                                                          "PctAcum":  73.266431202805308,
-                                                          "Categoria":  "A"
-                                                      },
-                                                      {
-                                                          "Cliente":  "PENHA SUSTENTABILIDADE E GESTAO DE RISCO",
-                                                          "Valor":  923.69,
-                                                          "PctAcum":  74.805605675127865,
-                                                          "Categoria":  "A"
-                                                      },
-                                                      {
-                                                          "Cliente":  "SEBASTIANA CABRAL ROCHA 56058730163",
-                                                          "Valor":  908.25,
-                                                          "PctAcum":  76.31905197690331,
-                                                          "Categoria":  "A"
-                                                      },
-                                                      {
-                                                          "Cliente":  "EBB ASSESSORIA EM SEGURANCA DO TRABALHO",
-                                                          "Valor":  864.41,
-                                                          "PctAcum":  77.759446271114939,
-                                                          "Categoria":  "A"
-                                                      },
-                                                      {
-                                                          "Cliente":  "LEANDRO DELLA DEA VIEIRA DA CRUZ",
-                                                          "Valor":  862.52,
-                                                          "PctAcum":  79.196691197299756,
+                                                          "Cliente":  "JATNIEL. J. KLEPSCKE ENGENHARIA LTDA",
+                                                          "Valor":  1000,
+                                                          "PctAcum":  71.590286431332828,
                                                           "Categoria":  "A"
                                                       }
                                                   ],
                                      "porCobrador":  [
                                                          {
                                                              "Nome":  "LETÍCIA",
-                                                             "Qtd":  33,
-                                                             "Valor":  33874.950000000012,
-                                                             "Juros":  965.44,
-                                                             "AtrasoMedio":  35.484848484848484
+                                                             "Qtd":  53,
+                                                             "Valor":  49546.320000000007,
+                                                             "Juros":  1213.1199999999997,
+                                                             "AtrasoMedio":  33.39622641509434
                                                          },
                                                          {
                                                              "Nome":  "POSITIVA",
@@ -180,40 +190,40 @@ const dashData = {
                                      "porFilial":  [
                                                        {
                                                            "Nome":  "CFF DESENVOLVIMENTO",
-                                                           "Qtd":  57,
-                                                           "VOriginal":  48255.86,
-                                                           "Juros":  3819.1700000000005,
-                                                           "VRecuperado":  52075.030000000013
+                                                           "Qtd":  68,
+                                                           "VOriginal":  57267.69000000001,
+                                                           "Juros":  3887.6400000000008,
+                                                           "VRecuperado":  55736.830000000016
                                                        },
                                                        {
                                                            "Nome":  "CFF SERVIÇOS",
-                                                           "Qtd":  21,
-                                                           "VOriginal":  7378.28,
-                                                           "Juros":  558.73,
-                                                           "VRecuperado":  7937.0099999999993
+                                                           "Qtd":  30,
+                                                           "VOriginal":  19208.64,
+                                                           "Juros":  737.94,
+                                                           "VRecuperado":  19946.579999999998
                                                        }
                                                    ],
                                      "aging":  {
                                                    "91_120":  6,
-                                                   "121_180":  4,
-                                                   "31_90":  18,
+                                                   "121_180":  5,
+                                                   "31_90":  24,
                                                    "mais_180":  33,
-                                                   "ate_30":  17
+                                                   "ate_30":  30
                                                },
                                      "kpis":  {
-                                                  "totalJuros":  4377.9000000000005,
-                                                  "ytdRecuperado":  687552.19000000006,
-                                                  "atrasoMedio":  216,
-                                                  "totalRecuperado":  60012.040000000008,
-                                                  "totalOriginal":  55634.140000000007,
-                                                  "totalRegistros":  78
+                                                  "totalJuros":  4625.5800000000008,
+                                                  "ytdRecuperado":  703223.56,
+                                                  "atrasoMedio":  178,
+                                                  "totalRecuperado":  75683.410000000018,
+                                                  "totalOriginal":  76476.33,
+                                                  "totalRegistros":  98
                                               },
                                      "agingValues":  {
                                                          "91_120":  4895.13,
-                                                         "121_180":  4859.4,
-                                                         "31_90":  20421.880000000005,
+                                                         "121_180":  7018.4,
+                                                         "31_90":  26770.300000000007,
                                                          "mais_180":  13024.760000000002,
-                                                         "ate_30":  16810.87
+                                                         "ate_30":  23974.82
                                                      }
                                  },
                   "Fevereiro-2026":  {
@@ -892,6 +902,6 @@ const dashData = {
                                                        }
                                    }
               },
-    "atualizadoEm":  "15/04/2026 16:15",
-    "totalAnoRecuperado":  687552.19
+    "atualizadoEm":  "17/04/2026 15:06",
+    "totalAnoRecuperado":  703223.55999999994
 };
