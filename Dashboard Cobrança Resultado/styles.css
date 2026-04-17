@@ -19,12 +19,12 @@
     --bg-dash: #F8F9FA;
     --bg-panel: #ffffff;
     --bg-input: #ffffff;
-    --border: #dee2e6;
-    --border-strong: #ced4da;
-    --text-main: #212529;
-    --text-muted: #6c757d;
-    --text-label: #495057;
-    --text-sub: #adb5bd;
+    --border: #ced4da;
+    --border-strong: #adb5bd;
+    --text-main: #000000;
+    --text-muted: #333333;
+    --text-label: #1a1a1a;
+    --text-sub: #444444;
     --gray-bar: #dee2e6;
 }
 

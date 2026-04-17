@@ -28,12 +28,12 @@
             --bg-dash: #F8F9FA;
             --bg-panel: #ffffff;
             --bg-input: #ffffff;
-            --border: #dee2e6;
-            --border-strong: #ced4da;
-            --text-main: #212529;
-            --text-muted: #6c757d;
-            --text-label: #495057;
-            --text-sub: #adb5bd;
+            --border: #ced4da;
+            --border-strong: #adb5bd;
+            --text-main: #000000;
+            --text-muted: #333333;
+            --text-label: #1a1a1a;
+            --text-sub: #444444;
             --gray-bar: #dee2e6;
         }
 
@@ -743,7 +743,7 @@
         `).join('');
 
         const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-        const txtColor = isLight ? '#495057' : '#888';
+        const txtColor = isLight ? '#1a1a1a' : '#888';
         const gridColor = isLight ? 'rgba(0,0,0,0.05)' : '#1a1a1a';
 
         updateChart('faixaChart', 'bar', {
@@ -760,7 +760,7 @@
         const ctx = document.getElementById(id);
         const isLight = document.documentElement.getAttribute('data-theme') === 'light';
         const gridColor = isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)';
-        const textColor = isLight ? '#495057' : '#888';
+        const textColor = isLight ? '#1a1a1a' : '#888';
 
         if(ctx) {
             chartInstances[id] = new Chart(ctx, { 
